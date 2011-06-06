@@ -1,0 +1,50 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           twSubscriptionList
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          tw_subscription_list
+    with_propel_route:     1
+
+    config:
+      actions: ~
+      fields:
+        id: { label: ID }
+        listname: { label: List name }
+        type_id: { label: List type }
+        list_type: { label: List type }
+        listdesc: { label: List description }
+        mailfrom: { label: Email from }
+        smtphost: { label: SMTP Host }
+        smtpuser: { label: SMTP Username }
+        smtppass: { label: SMTP Password }
+        website_base_url: { label: Website base URL }
+        sentmail: { help: From this email - emails will be sent }
+        template_id: { params: include_custom=-- choose template to connect with list --, help: You can select template to spedup mailing creation }
+
+      list:
+        title: Your Lists
+        display: [listname, list_type, emails, create_mailing]
+        max_per_page: 10
+        object_actions:
+          _edit: -
+          _delete: -
+          _code: { label: Code, action: code }
+        actions:
+          _new: ~
+        batch_actions:
+          _delete: ~
+
+      filter:
+        display: [listname, type_id, template_id]
+        
+      form:    ~
+      edit:
+        title: > 
+          Your List: %%listname%%
+
+      new:     ~

@@ -1,0 +1,38 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           twSubscriptionMessage
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          tw_subscription_message
+    with_propel_route:     1
+
+    config:
+      actions: ~
+      fields:
+        id: { label: ID }
+        type_id: { label: Message type, help: Text emails can have only text inside. }
+        subject: { label: Message subject }
+        message: 
+          label: Message body
+          help: >
+            Please put here your message data. To have personalized information you can use special tags like {email} or {fullname} which are ne change to email adres and Fullname of user who will gain this message. To add special link to unsubscribe from this list please use tag {unsubscribe}.
+        
+      list:
+        title: Messages
+        display: [subject, message_type]
+        max_per_page: 10
+      
+      filter:
+        display: [type_id, subject]
+        
+      form:    ~
+      edit:
+        title: > 
+          Message: %%subject%%
+      
+      new:
+        title: Create new message

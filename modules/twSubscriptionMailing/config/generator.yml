@@ -1,0 +1,46 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           twSubscriptionMailing
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          tw_subscription_mailing
+    with_propel_route:     1
+
+    config:
+      actions: ~
+      fields:
+        id:           { label: ID }
+        list_id:      { label: List name, help: Select list of subscribers to whom you want to send subscription }
+        list:         { label: List name, help: Select list of subscribers to whom you want to send subscription }
+        type_id:      { label: List type }
+        message_id:   { label: Message subject, help: Select message }
+        message:      { label: Message subject, help: Select message }
+        time_to_send: { label: Time to send }
+        in_queue:     { label: In queue }
+        in_sent:      { label: In sent }
+      
+      list:
+        title: Your Mailer
+        display: [id, list, message, time_to_send, in_queue, in_sent]
+        sort:   [id, desc]
+        max_per_page: 10
+        object_actions:
+          _send: { name: Send mailing, action: sendMailing }
+          _edit: ~
+          _delete: ~
+        
+      filter:
+        display: [list_id]
+      form:    ~
+      edit:
+        title: > 
+          Create or edit your mailer
+          
+      new:
+        title: > 
+          Create or edit your mailer
+      

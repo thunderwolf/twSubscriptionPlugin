@@ -1,0 +1,1 @@
+Adres <?php echo $email->getRemail() ?> dla listy <?php echo $email->getListName() ?> został zdezaktywowany

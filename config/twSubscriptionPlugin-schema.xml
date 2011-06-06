@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="propel" package="plugins.twSubscriptionPlugin.lib.model" defaultIdMethod="native">
+
+  <table name="tw_subscription_list_type" phpName="twSubscriptionListType" isI18N="true" i18nTable="tw_subscription_list_type_i18n">
+    <column name="id" type="integer" required="true" primaryKey="true" autoincrement="true" />
+    <column name="code" type="varchar" size="20" />
+    <column name="library" type="varchar" size="150" />
+  </table>
+
+  <table name="tw_subscription_list_type_i18n" phpName="twSubscriptionListTypeI18n">
+    <column name="id" type="integer" required="true" primaryKey="true" />
+    <foreign-key foreignTable="tw_subscription_list_type">
+      <reference local="id" foreign="id" />
+    </foreign-key>
+    <column name="culture" isCulture="true" type="varchar" size="7" required="true" primaryKey="true" />
+    <column name="name" type="varchar" size="50" />
+  </table>
+
+  <table name="tw_subscription_message_type" phpName="twSubscriptionMessageType" isI18N="true" i18nTable="tw_subscription_message_type_i18n">
+    <column name="id" type="integer" required="true" primaryKey="true" autoincrement="true" />
+    <column name="code" type="varchar" size="8" />
+  </table>
+
+  <table name="tw_subscription_message_type_i18n" phpName="twSubscriptionMessageTypeI18n">
+    <column name="id" type="integer" required="true" primaryKey="true" />
+    <foreign-key foreignTable="tw_subscription_message_type">
+      <reference local="id" foreign="id" />
+    </foreign-key>
+    <column name="culture" isCulture="true" type="varchar" size="7" required="true" primaryKey="true" />
+    <column name="name" type="varchar" size="50" />
+  </table>
+
+  <table name="tw_subscription_template" phpName="twSubscriptionTemplate" idMethod="native">
+    <column name="id" type="INTEGER" required="true" autoIncrement="true" primaryKey="true" />
+    <column name="type_id" type="INTEGER" required="true" />
+    <foreign-key foreignTable="tw_subscription_message_type" onDelete="cascade">
+      <reference local="type_id" foreign="id" />
+    </foreign-key>
+    <column name="tname" type="VARCHAR" size="50" required="true" />
+    <column name="tdata" type="LONGVARCHAR" required="true" />
+  </table>
+
+  <table name="tw_subscription_list" phpName="twSubscriptionList" idMethod="native">
+    <column name="id" type="INTEGER" required="true" autoIncrement="true" primaryKey="true" />
+    <column name="type_id" type="integer" required="true" />
+    <foreign-key foreignTable="tw_subscription_list_type" onDelete="cascade">
+      <reference local="type_id" foreign="id" />
+    </foreign-key>
+    <column name="language_id" type="integer" />
+    <foreign-key foreignTable="tw_language" onDelete="setnull">
+      <reference local="language_id" foreign="id" />
+    </foreign-key>
+    <column name="template_id" type="integer" />
+    <foreign-key foreignTable="tw_subscription_template" onDelete="setnull">
+      <reference local="template_id" foreign="id" />
+    </foreign-key>
+    <column name="listname" type="VARCHAR" size="250" required="true" />
+    <column name="listdesc" type="LONGVARCHAR" />
+    <column name="fromname" type="VARCHAR" size="250" />
+    <column name="mailfrom" type="VARCHAR" size="250" required="true" />
+    <column name="smtphost" type="VARCHAR" size="150" />
+    <column name="smtpport" type="integer" />
+    <column name="smtpencr" type="integer" />
+    <column name="smtpuser" type="VARCHAR" size="50" />
+    <column name="smtppass" type="VARCHAR" size="50" />
+    <column name="website_base_url" type="VARCHAR" size="250" required="true" />
+    <column name="website_shared_key" type="VARCHAR" size="40" required="true" />
+    <column name="lastsync_at" type="TIMESTAMP" />
+  </table>
+
+  <table name="tw_subscription_email" phpName="twSubscriptionEmail" idMethod="native">
+    <column name="id" type="INTEGER" required="true" autoIncrement="true" primaryKey="true" />
+    <column name="list_id" type="INTEGER" required="true" />
+    <foreign-key foreignTable="tw_subscription_list" onDelete="cascade">
+      <reference local="list_id" foreign="id" />
+    </foreign-key>
+    <column name="status_id" type="INTEGER" required="true" />
+    <foreign-key foreignTable="tw_subscription_status" onDelete="cascade">
+      <reference local="status_id" foreign="id" />
+    </foreign-key>
+    <column name="remail" type="VARCHAR" size="250" required="true" />
+    <column name="rname" type="VARCHAR" size="250" />
+    <column name="expires" type="TIMESTAMP" />
+    <column name="auth_key" type="VARCHAR" size="40" required="true" />
+    <column name="created_at" type="TIMESTAMP" required="false" />
+    <index name="list_id">
+      <index-column name="list_id" />
+    </index>
+    <index name="inputtime">
+      <index-column name="created_at" />
+    </index>
+    <unique name="auth_key">
+      <unique-column name="auth_key" />
+    </unique>
+    <unique name="listemail">
+      <unique-column name="list_id" />
+      <unique-column name="remail" />
+    </unique>
+  </table>
+
+  <table name="tw_subscription_status" phpName="twSubscriptionStatus" isI18N="true" i18nTable="tw_subscription_status_i18n">
+    <column name="id" type="INTEGER" required="true" autoIncrement="true" primaryKey="true" />
+    <column name="code" type="VARCHAR" size="250" required="true" />
+  </table>
+
+  <table name="tw_subscription_status_i18n" phpName="twSubscriptionStatusI18n">
+    <column name="id" type="integer" required="true" primaryKey="true" />
+    <foreign-key foreignTable="tw_subscription_status">
+      <reference local="id" foreign="id" />
+    </foreign-key>
+    <column name="name" type="VARCHAR" size="250" required="true" />
+    <column name="culture" isCulture="true" type="varchar" size="7" required="true" primaryKey="true" />
+  </table>
+
+  <table name="tw_subscription_message" phpName="twSubscriptionMessage" idMethod="native">
+    <column name="id" type="INTEGER" required="true" autoIncrement="true" primaryKey="true" />
+    <column name="type_id" type="INTEGER" required="true" />
+    <foreign-key foreignTable="tw_subscription_message_type" onDelete="cascade">
+      <reference local="type_id" foreign="id" />
+    </foreign-key>
+    <column name="subject" type="LONGVARCHAR" required="true" />
+    <column name="message" type="clob" required="true" />
+  </table>
+
+  <table name="tw_subscription_list_invitation" phpName="twSubscriptionListInvitation" idMethod="native">
+    <column name="id" type="INTEGER" required="true" autoIncrement="true" primaryKey="true" />
+    <column name="list_id" type="INTEGER" required="true" />
+    <foreign-key foreignTable="tw_subscription_list" onDelete="cascade">
+      <reference local="list_id" foreign="id" />
+    </foreign-key>
+    <column name="type_id" type="INTEGER" required="true" />
+    <foreign-key foreignTable="tw_subscription_message_type" onDelete="cascade">
+      <reference local="type_id" foreign="id" />
+    </foreign-key>
+    <column name="subject" type="LONGVARCHAR" required="true" />
+    <column name="message" type="clob" required="true" />
+  </table>
+
+  <table name="tw_subscription_mailing" phpName="twSubscriptionMailing" idMethod="native">
+    <column name="id" type="INTEGER" required="true" autoIncrement="true" primaryKey="true" />
+    <column name="list_id" type="INTEGER" required="true" />
+    <foreign-key foreignTable="tw_subscription_list" onDelete="cascade">
+      <reference local="list_id" foreign="id" />
+    </foreign-key>
+    <column name="message_id" type="INTEGER" required="true" />
+    <foreign-key foreignTable="tw_subscription_message" onDelete="cascade">
+      <reference local="message_id" foreign="id" />
+    </foreign-key>
+    <column name="time_to_send" type="TIMESTAMP" required="true" />
+    <column name="created_at" type="TIMESTAMP" required="false" />
+    <index name="list_id_idx">
+      <index-column name="list_id" />
+    </index>
+    <index name="message_id_idx">
+      <index-column name="message_id" />
+    </index>
+    <index name="time_to_send_idx">
+      <index-column name="time_to_send" />
+    </index>
+  </table>
+
+  <table name="tw_subscription_mail_queue" phpName="twSubscriptionMailQueue" idMethod="native">
+    <column name="id" type="INTEGER" required="true" autoIncrement="true" primaryKey="true" />
+    <column name="mailing_id" type="INTEGER" required="true" />
+    <foreign-key foreignTable="tw_subscription_mailing" onDelete="cascade">
+      <reference local="mailing_id" foreign="id" />
+    </foreign-key>
+    <column name="message_id" type="INTEGER" required="true" />
+    <foreign-key foreignTable="tw_subscription_message" onDelete="cascade">
+      <reference local="message_id" foreign="id" />
+    </foreign-key>
+    <column name="type_id" type="INTEGER" required="true" />
+    <foreign-key foreignTable="tw_subscription_message_type" onDelete="cascade">
+      <reference local="type_id" foreign="id" />
+    </foreign-key>
+    <column name="subject" type="LONGVARCHAR" required="true" />
+    <column name="message" type="LONGVARCHAR" required="true" />
+    <column name="list_id" type="INTEGER" required="true" />
+    <foreign-key foreignTable="tw_subscription_list" onDelete="cascade">
+      <reference local="list_id" foreign="id" />
+    </foreign-key>
+    <column name="fromname" type="VARCHAR" size="250" />
+    <column name="mailfrom" type="VARCHAR" size="250" required="true" />
+    <column name="smtphost" type="VARCHAR" size="150" />
+    <column name="smtpuser" type="VARCHAR" size="50" />
+    <column name="smtppass" type="VARCHAR" size="50" />
+    <column name="subscription_base_url" type="VARCHAR" size="250" />
+    <column name="website_base_url" type="VARCHAR" size="250" />
+    <column name="remail" type="VARCHAR" size="250" required="true" />
+    <column name="rname" type="VARCHAR" size="250" />
+    <column name="unsubscribe" type="VARCHAR" size="40" required="true" />
+    <column name="unsublink" type="VARCHAR" size="250" />
+    <column name="time_to_send" type="TIMESTAMP" required="true" />
+    <column name="try_sent" type="TINYINT" required="true" default="0" />
+    <column name="created_at" type="TIMESTAMP" required="false" />
+    <index name="mailing_id_idx">
+      <index-column name="mailing_id" />
+    </index>
+    <index name="time_to_send_idx">
+      <index-column name="time_to_send" />
+    </index>
+  </table>
+
+  <table name="tw_subscription_mail_sent" phpName="twSubscriptionMailSent" idMethod="native">
+    <column name="id" type="INTEGER" required="true" autoIncrement="true" primaryKey="true" />
+    <column name="mailing_id" type="INTEGER" required="true" />
+    <foreign-key foreignTable="tw_subscription_mailing" onDelete="cascade">
+      <reference local="mailing_id" foreign="id" />
+    </foreign-key>
+    <column name="time_to_send" type="TIMESTAMP" required="true" />
+    <column name="sender" type="VARCHAR" size="50" required="true" default=" " />
+    <column name="remail" type="VARCHAR" size="50" required="true" default=" " />
+    <column name="body" type="clob" required="true" />
+    <column name="created_at" type="TIMESTAMP" required="false" />
+    <index name="mailing_id_idx">
+      <index-column name="mailing_id" />
+    </index>
+    <index name="time_to_send_idx">
+      <index-column name="time_to_send" />
+    </index>
+  </table>
+
+  <table name="tw_subscription_version" phpName="twSubscriptionVersion" idMethod="native">
+    <column name="id" type="INTEGER" required="true" autoIncrement="true" primaryKey="true" />
+    <column name="name" type="VARCHAR" size="250" required="true" />
+    <column name="value" type="VARCHAR" size="250" />
+  </table>
+
+  <table name="tw_subscription_setup" phpName="twSubscriptionSetup" isI18N="true" i18nTable="tw_subscription_setup_i18n">
+    <column name="id" type="INTEGER" required="true" autoIncrement="true" primaryKey="true" />
+    <column name="code" type="VARCHAR" size="250" required="true" />
+    <column name="is_html" type="INTEGER" required="true" default="0" />
+  </table>
+
+  <table name="tw_subscription_setup_i18n" phpName="twSubscriptionSetupI18n">
+    <column name="id" type="integer" required="true" primaryKey="true" />
+    <foreign-key foreignTable="tw_subscription_setup">
+      <reference local="id" foreign="id" />
+    </foreign-key>
+    <column name="name" type="VARCHAR" size="250" required="true" />
+    <column name="culture" isCulture="true" type="varchar" size="7" required="true" primaryKey="true" />
+    <column name="value" type="LONGVARCHAR" />
+  </table>
+
+</database>
