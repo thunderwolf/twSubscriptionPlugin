@@ -9,10 +9,13 @@ require_once dirname(__FILE__) . '/../lib/twSubscriptionMessageGeneratorHelper.c
  * @package    pzmtravel
  * @subpackage twSubscriptionMessage
  * @author     Your name here
- * @version    SVN: $Id: actions.class.php 510 2011-05-05 11:48:07Z ldath $
+ * @version    SVN: $Id: actions.class.php 1022 2012-10-04 22:01:20Z ldath $
  */
 class twSubscriptionMessageActions extends autoTwSubscriptionMessageActions {
 	public function preExecute() {
+		sfConfig::set('tw_admin:default:module', 'tw_subscription');
+		sfConfig::set('tw_admin:default:category', 'tw_subscription_message');
+		sfConfig::set('tw_admin:default:nav', 'tabs');
 		parent::preExecute();
 		$this->configuration->setUser($this->getUser());
 	}
@@ -41,9 +44,6 @@ class twSubscriptionMessageActions extends autoTwSubscriptionMessageActions {
 		$this->forward404Unless($list);
 		
 		$response = $this->getResponse();
-		$response->addStyleSheet('/twSubscriptionPlugin/css/smoothness/jquery-ui-1.8.11.custom.css');
-		$response->addJavaScript('/twSubscriptionPlugin/js/jquery-1.5.1.min.js');
-		$response->addJavaScript('/twSubscriptionPlugin/js/jquery-ui-1.8.11.custom.min.js');
 		
 		$message = '';
 		

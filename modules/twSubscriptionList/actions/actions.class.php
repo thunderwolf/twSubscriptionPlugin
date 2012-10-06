@@ -9,11 +9,13 @@ require_once dirname(__FILE__) . '/../lib/twSubscriptionListGeneratorHelper.clas
  * @package    subskrypcja
  * @subpackage twSubscriptionList
  * @author     Arkadiusz Tułodziecki
- * @version    SVN: $Id: actions.class.php 515 2011-05-06 15:06:21Z ldath $
+ * @version    SVN: $Id: actions.class.php 1011 2012-09-11 05:45:22Z ldath $
  */
-class twSubscriptionListActions extends autotwSubscriptionListActions
-{
+class twSubscriptionListActions extends autotwSubscriptionListActions {
 	public function preExecute() {
+		sfConfig::set('tw_admin:default:module', 'tw_subscription');
+		sfConfig::set('tw_admin:default:category', 'tw_subscription_list');
+		sfConfig::set('tw_admin:default:nav', 'tabs');
 		parent::preExecute();
 		$this->configuration->setUser($this->getUser());
 	}
@@ -37,31 +39,33 @@ class twSubscriptionListActions extends autotwSubscriptionListActions
 	public function executeCode(sfWebRequest $request) {
 		$this->tw_subscription_list = $this->getRoute()->getObject();
 		
-		$file_code = file_get_contents(sfConfig::get('sf_plugins_dir').'/twSubscriptionPlugin/modules/twSubscriptionList/templates/templ_code.js');
+		$file_code = file_get_contents(sfConfig::get('sf_plugins_dir') . '/twSubscriptionPlugin/modules/twSubscriptionList/templates/templ_code.js');
 		$file_code = mb_ereg_replace('\^APP_BASE_URL\^', $_SERVER['SERVER_NAME'], $file_code);
 		$file_code = mb_ereg_replace('\^LIST_ID\^', $this->tw_subscription_list->getId(), $file_code);
 		$file_code = mb_ereg_replace('\^SNIPPET_ID\^', md5(0xDEADBEEF + $this->tw_subscription_list->getId()), $file_code);
 		
-		$this->form = new twSubscriptionCodeForm(array('list_js' => $file_code));
+		$this->form = new twSubscriptionCodeForm(array(
+			'list_js' => $file_code
+		));
 	}
 	
 	public function executePhp(sfWebRequest $request) {
 		$this->setLayout(false);
 		
 		$this->tw_subscription_list = $this->getRoute()->getObject();
-
-		$file_php = file_get_contents(sfConfig::get('sf_plugins_dir').'/twSubscriptionPlugin/modules/twSubscriptionList/templates/templ_transport.php');
+		
+		$file_php = file_get_contents(sfConfig::get('sf_plugins_dir') . '/twSubscriptionPlugin/modules/twSubscriptionList/templates/templ_transport.php');
 		$file_php = mb_ereg_replace('\^APP_BASE_URL\^', $_SERVER['SERVER_NAME'], $file_php);
 		$file_php = mb_ereg_replace('\^SHARED_KEY\^', $this->tw_subscription_list->getWebsiteSharedKey(), $file_php);
 		$file_php = mb_ereg_replace('\^LIST_ID\^', $this->tw_subscription_list->getId(), $file_php);
 		
-		$this->getResponse()->setHttpHeader('Content-Type','application/octet-stream');
+		$this->getResponse()->setHttpHeader('Content-Type', 'application/octet-stream');
 		$this->getResponse()->setHttpHeader('Content-Disposition', 'attachment; filename=subskrypcja.php');
 		
 		$this->getResponse()->setContent($file_php);
 		return sfView::NONE;
 	}
-
+	
 	// TODO: w tasku synchronizującym jest lepsza obsługa sprawdzająca zgodność z interface
 	public function executeSyncEmails(sfWebRequest $request) {
 		$this->tw_subscription_list = $this->getRoute()->getObject();

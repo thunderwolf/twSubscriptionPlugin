@@ -2,7 +2,7 @@ generator:
   class: sfPropelGenerator
   param:
     model_class:           twSubscriptionTemplate
-    theme:                 admin
+    theme:                 twadmin
     non_verbose_templates: true
     with_show:             false
     singular:              ~

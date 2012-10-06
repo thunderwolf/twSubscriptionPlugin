@@ -3,13 +3,11 @@
 /**
  * twSubscriptionStatusI18n filter form.
  *
- * @package    ##PROJECT_NAME##
+ * @package    twSubscriptionPlugin
  * @subpackage filter
- * @author     ##AUTHOR_NAME##
+ * @author     Arkadiusz Tułodziecki
  */
-class twSubscriptionStatusI18nFormFilter extends BasetwSubscriptionStatusI18nFormFilter
-{
-  public function configure()
-  {
-  }
+class twSubscriptionStatusI18nFormFilter extends BasetwSubscriptionStatusI18nFormFilter {
+	public function configure() {
+	}
 }

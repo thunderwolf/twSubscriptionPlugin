@@ -3,13 +3,11 @@
 /**
  * twSubscriptionListInvitation filter form.
  *
- * @package    ##PROJECT_NAME##
+ * @package    twSubscriptionPlugin
  * @subpackage filter
- * @author     ##AUTHOR_NAME##
+ * @author     Arkadiusz Tułodziecki
  */
-class twSubscriptionListInvitationFormFilter extends BasetwSubscriptionListInvitationFormFilter
-{
-  public function configure()
-  {
-  }
+class twSubscriptionListInvitationFormFilter extends BasetwSubscriptionListInvitationFormFilter {
+	public function configure() {
+	}
 }

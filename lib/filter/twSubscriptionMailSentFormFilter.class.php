@@ -3,13 +3,11 @@
 /**
  * twSubscriptionMailSent filter form.
  *
- * @package    ##PROJECT_NAME##
+ * @package    twSubscriptionPlugin
  * @subpackage filter
- * @author     ##AUTHOR_NAME##
+ * @author     Arkadiusz Tułodziecki
  */
-class twSubscriptionMailSentFormFilter extends BasetwSubscriptionMailSentFormFilter
-{
-  public function configure()
-  {
-  }
+class twSubscriptionMailSentFormFilter extends BasetwSubscriptionMailSentFormFilter {
+	public function configure() {
+	}
 }

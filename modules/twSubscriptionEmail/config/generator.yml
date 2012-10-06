@@ -2,7 +2,7 @@ generator:
   class: sfPropelGenerator
   param:
     model_class:           twSubscriptionEmail
-    theme:                 admin
+    theme:                 twadmin
     non_verbose_templates: true
     with_show:             false
     singular:              ~
@@ -27,7 +27,7 @@ generator:
         max_per_page: 10
         actions:
           _new: ~
-          return: { label: powrót do listy }
+          return: { label: powrót do listy, params: { class: 'btn btn-success' } }
       
       filter:
         display: [list_id, status_id, remail, rname]

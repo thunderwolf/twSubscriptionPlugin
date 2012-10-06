@@ -5,7 +5,7 @@
  *
  * @package    form
  * @subpackage tw_subscription_template
- * @version    SVN: $Id: twSubscriptionTemplateForm.class.php 506 2011-04-19 21:11:07Z ldath $
+ * @version    SVN: $Id: twSubscriptionTemplateForm.class.php 1018 2012-09-27 20:44:54Z ldath $
  */
 class twSubscriptionTemplateForm extends BasetwSubscriptionTemplateForm {
 	public function configure() {
@@ -14,9 +14,18 @@ class twSubscriptionTemplateForm extends BasetwSubscriptionTemplateForm {
 			$type_id = $this->getObject()->getTypeId();
 		}
 		if ($type_id != 1) {
-			$this->widgetSchema['tdata'] = new sfWidgetFormCKEditor();
-			$editor = $this->widgetSchema['tdata']->getEditor();
-			$editor->config['customConfig'] = '/twSubscriptionPlugin/js/ck_template.js';
+			sfContext::getInstance()->getConfiguration()->loadHelpers(array(
+					'Helper', 'Tag', 'Url'
+				));
+			$config = array(
+				'language' => 'pl', 'entities_latin' => false, 'entities_greek' => false,
+				'filebrowserBrowseUrl' => url_for('@tw_filemanager_index?sf_format=html') . '?path='
+					. urlencode(sfConfig::get('app_tw_subscription_media_folder', 'subscription')), 'customConfig' => '/twAdminPlugin/js/ck_content.js',
+			);
+			
+			$this->widgetSchema['tdata'] = new sfWidgetFormCKEditor(array(
+				'jsoptions' => $config
+			));
 		}
 	}
 }

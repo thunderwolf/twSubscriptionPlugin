@@ -9,10 +9,13 @@ require_once dirname(__FILE__) . '/../lib/twSubscriptionEmailGeneratorHelper.cla
  * @package    pzmtravel
  * @subpackage twSubscriptionEmail
  * @author     Your name here
- * @version    SVN: $Id: actions.class.php 504 2011-03-16 23:26:14Z ldath $
+ * @version    SVN: $Id: actions.class.php 1011 2012-09-11 05:45:22Z ldath $
  */
 class twSubscriptionEmailActions extends autoTwSubscriptionEmailActions {
 	public function preExecute() {
+		sfConfig::set('tw_admin:default:module', 'tw_subscription');
+		sfConfig::set('tw_admin:default:category', 'tw_subscription_email');
+		sfConfig::set('tw_admin:default:nav', 'tabs');
 		parent::preExecute();
 		$this->configuration->setUser($this->getUser());
 	}

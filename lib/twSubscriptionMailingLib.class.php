@@ -15,13 +15,8 @@ class twSubscriptionMailingLib {
 		$mailing->save();
 	}
 	
-	static public function sendMailing(sfLogger $logger, PropelPDO $con = null) {
-		require_once sfConfig::get('sf_lib_dir') . '/vendor/swiftmailer/swift_init.php';
-		if ($con === null) {
-			$con = Propel::getConnection(twSubscriptionEmailPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-		}
-		
-		$sth = $con->prepare('
+	static public function sendMailing($task, $connection, &$processed, &$notprocessed) {
+		$sth = $connection->prepare('
 			SELECT smtphost, smtpuser, smtppass, mailfrom, remail, subject, message, id, mailing_id, time_to_send, type_id, rname, unsubscribe, website_base_url, subscription_base_url, fromname, list_id
 			FROM tw_subscription_mail_queue
 			WHERE time_to_send < NOW()
@@ -49,16 +44,16 @@ class twSubscriptionMailingLib {
 				} else if ($row['type_id'] == 2) {
 					$message = self::prepareHtmlMessage($row);
 				} else {
-					$message = self::prepareEmbededMessage($row, $logger);
+					$message = self::prepareEmbededMessage($row, $task);
 				}
 				
 				if ($mailer->send($message)) {
-					self::delFromQueue($row, $con, $logger);
+					self::delFromQueue($row, $connection, $task, $processed);
 				} else {
-					$logger->log("Message failed to send");
+					$notprocessed++;
 				}
 			} catch (Exception $e) {
-				$logger->log($e->getMessage());
+				$task->printAndLog($e->getMessage());
 				continue;
 			}
 		}
@@ -81,11 +76,11 @@ class twSubscriptionMailingLib {
 		return $message;
 	}
 	
-	static public function prepareEmbededMessage($data, $logger) {
+	static public function prepareEmbededMessage($data, $task) {
 		$message = Swift_Message::newInstance($data['subject'])->setFrom($data['mailfrom'])->setTo($data['remail']);
 		
 		$html = self::standardReplace($data['message'], $data);
-		$html = self::embedHtmlTags($html, $data, $message, $logger);
+		$html = self::embedHtmlTags($html, $data, $message, $task);
 		$text = self::getPlainFromHtml($html);
 		
 		$message->setBody($html, 'text/html');
@@ -102,36 +97,36 @@ class twSubscriptionMailingLib {
 		return $message;
 	}
 	
-	static protected function embedHtmlTags($message, $data, $messageobj, $logger) {
-		$message = preg_replace('/(<img.*?src=\")(.*?)(\".*?>)/ise', "self::bundleHtmlTag('$1', '$2', '$3', \$data, \$messageobj, \$logger)", $message);
-		$message = preg_replace('/(<.*?background=\")(.*?)(\".*?>)/ise', "self::bundleHtmlTag('$1', '$2', '$3', \$data, \$messageobj, \$logger)", $message);
-		$message = preg_replace('/(<input.*?src=\")(.*?)(\".*?>)/ise', "self::bundleHtmlTag('$1', '$2', '$3', \$data, \$messageobj, \$logger)", $message);
+	static protected function embedHtmlTags($message, $data, $messageobj, $task) {
+		$message = preg_replace('/(<img.*?src=\")(.*?)(\".*?>)/ise', "self::bundleHtmlTag('$1', '$2', '$3', \$data, \$messageobj, \$task)", $message);
+		$message = preg_replace('/(<.*?background=\")(.*?)(\".*?>)/ise', "self::bundleHtmlTag('$1', '$2', '$3', \$data, \$messageobj, \$task)", $message);
+		$message = preg_replace('/(<input.*?src=\")(.*?)(\".*?>)/ise', "self::bundleHtmlTag('$1', '$2', '$3', \$data, \$messageobj, \$task)", $message);
 		// TODO: pamięć zawodzi - czy ma być parseHtmlTag?
 		$message = preg_replace('/(<a.*?href=\")(.*?)(\".*?>)/ise', "self::parseHtmlTag('$1', '$2', '$3', \$data)", $message);
 		
 		return $message;
 	}
 	
-	static protected function bundleHtmlTag($prefix, $path, $suffix, $data, $messageobj, $logger) {
+	static protected function bundleHtmlTag($prefix, $path, $suffix, $data, $messageobj, $task) {
 		$allowed_schemes = array('http', 'https', 'ftp');
 		
 		$url_chopped = parse_url($path);
 		if (is_array($url_chopped) && in_array('scheme', array_keys($url_chopped)) && in_array($url_chopped['scheme'], $allowed_schemes)) {
 			// TODO: trzeba będzie po sobie jakoś posprzątać po wysłaniu maila
 			$path = self::cacheInternetImage($path);
-			$cid = self::getImageFileCid($path, $messageobj, $logger);
+			$cid = self::getImageFileCid($path, $messageobj, $task);
 		} else {
 			$path = sfConfig::get('sf_web_dir') . urldecode($path);
-			$cid = self::getImageFileCid($path, $messageobj, $logger);
+			$cid = self::getImageFileCid($path, $messageobj, $task);
 		}
 		return stripslashes($prefix) . $cid . stripslashes($suffix);
 	}
 	
-	static protected function getImageFileCid($path, $messageobj, $logger) {
+	static protected function getImageFileCid($path, $messageobj, $task) {
 		if (is_file($path)) {
 			$cid = $messageobj->embed(Swift_Image::fromPath($path));
 		} else {
-			$logger->log("Warning: No file '" . $path . "'\n");
+			$task->printAndLog("Warning: No file '" . $path . "'\n");
 			$cid = '';
 		}
 		return $cid;
@@ -215,7 +210,7 @@ class twSubscriptionMailingLib {
 		return $text;
 	}
 	
-	static protected function delFromQueue($row, $con, $logger) {
+	static protected function delFromQueue($row, $con, $task, &$processed) {
 		$con->beginTransaction();
 		try {
 			$stmt = $con->prepare('
@@ -237,10 +232,10 @@ class twSubscriptionMailingLib {
 			$stmt->execute();
 			
 			$con->commit();
-			$logger->log("Message send");
+			$processed++;
 		} catch (Exception $e) {
 			$con->rollBack();
-			$logger->log("Failed: " . $e->getMessage());
+			$task->printAndLog("Failed: " . $e->getMessage());
 		}
 	}
 	

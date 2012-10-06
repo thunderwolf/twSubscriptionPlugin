@@ -9,9 +9,16 @@ require_once dirname(__FILE__) . '/../lib/twSubscriptionMailingGeneratorHelper.c
  * @package    pzmtravel
  * @subpackage twSubscriptionMailing
  * @author     Your name here
- * @version    SVN: $Id: actions.class.php 508 2011-04-19 21:54:39Z ldath $
+ * @version    SVN: $Id: actions.class.php 1011 2012-09-11 05:45:22Z ldath $
  */
 class twSubscriptionMailingActions extends autoTwSubscriptionMailingActions {
+	public function preExecute() {
+		sfConfig::set('tw_admin:default:module', 'tw_subscription');
+		sfConfig::set('tw_admin:default:category', 'tw_subscription_mailing');
+		sfConfig::set('tw_admin:default:nav', 'tabs');
+		return parent::preExecute();
+	}
+	
 	public function executeStop(sfWebRequest $request) {
 		$tw_subscription_mailing = $this->getRoute()->getObject();
 		

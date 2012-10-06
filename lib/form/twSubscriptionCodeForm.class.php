@@ -8,12 +8,6 @@
  * @author     Arkadiusz Tułodziecki
  */
 class twSubscriptionCodeForm extends sfForm {
-	public function setup() {
-		sfValidatorBase::setMessage('required', 'To pole jest wymagane.');
-		sfValidatorBase::setMessage('invalid', 'Zawartość pola jest nieprawidłowa.');
-		parent::setup();
-	}
-	
 	public function configure() {
 		$this->setWidgets(
 			array(
