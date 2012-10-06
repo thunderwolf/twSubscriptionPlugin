@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en" datatype="plaintext">
+    <body>
+      <trans-unit id="1">
+        <source>creating and administrating lists of emails</source>
+        <target>tworzenie i zarządzenie listami z adresami email</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>email searching, adding and modify</source>
+        <target>wyszukiwanie, modyfikacja adresów email w Twojej bazie</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>looking to your mailings and creating new ones</source>
+        <target>oglądanie Twoich wysyłek, tworzenie nowych</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>creating email promotions campaings</source>
+        <target>definiowanie czasowych kampanii promocyjnych</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>setting up autoresponder messages</source>
+        <target>automatyczna odpowiedź na nadchodzące wiadomości</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>creating and modifying messages to clients</source>
+        <target>przygotowane wiadomości które możemy wysłać</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>mails in queue, in progress of sending or waitingfor send</source>
+        <target>maile znajdujące się w kolejce,czekające lub w trakcie wysyłania</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>mails sent to clients</source>
+        <target>maile wysłane do klientów</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>if you have any suggestions please tell us about it</source>
+        <target>jeżeli masz jakies sugestie, problemy po prostu powiedz nam o tym</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>you can connect template to your list, it's simplify your email creation</source>
+        <target>możesz podpiąć szablon pod twoją listę, to znacznie ułatwi tworzenie emaili</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

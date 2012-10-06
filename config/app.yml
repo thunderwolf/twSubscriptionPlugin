@@ -1,0 +1,57 @@
+all:
+  
+  tw_admin:
+    module:
+      tw_subscription:
+        label: Subscription
+        url:   '@tw_subscription_info'
+        credentials: [subscription]
+
+    menu:
+      tw_subscription:
+        categories:
+          tw_subscription_info:
+            label: Informations
+            url:   '@tw_subscription_info'
+            credentials: [subscription]
+          tw_subscription_list:
+            label: Your Lists
+            url:   '@tw_subscription_list'
+            credentials: [subscription]
+          tw_subscription_email:
+            label: Your Emails
+            url:   '@tw_subscription_email_clean'
+            credentials: [subscription]
+          tw_subscription_message:
+            label: Messages
+            url:   '@tw_subscription_message'
+            credentials: [subscription]
+          tw_subscription_mailing:
+            label: Your Mailer
+            url:   '@tw_subscription_mailing'
+            credentials: [subscription]
+          tw_subscription_mail_queue:
+            label: Emails Queue
+            url:   '@tw_subscription_mail_queue'
+            credentials: [subscription]
+          tw_subscription_mail_sent:
+            label: Sent Emails
+            url:   '@tw_subscription_mail_sent'
+            credentials: [subscription]
+          tw_subscription_faq:
+            label: Questions
+            url:   '@tw_subscription_faq'
+            credentials: [subscription]
+          tw_subscription_import:
+            label: Import
+            url:   '@tw_subscription_import'
+            credentials: [subscription]
+          tw_subscription_template:
+            label: Templates
+            url:   '@tw_subscription_template'
+            credentials: [subscription]
+          tw_subscription_setup:
+            label: Setup
+            url:   '@tw_subscription_setup'
+            credentials: [subscription]
+    
