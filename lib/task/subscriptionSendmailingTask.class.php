@@ -31,7 +31,7 @@ EOF;
 		parent::checkParameters($arguments, $options);
 		
 		if (!isset($this->opts['check-running']) || $this->opts['check-running'] != true) {
-			throw new InvalidArgumentException('Run the task without the "check-running=1" option.');
+			throw new InvalidArgumentException('Run the task with the "check-running=1" option.');
 		}
 	}
 	
