@@ -1,1 +1,5 @@
 .svn
+lib/filter/base/
+lib/form/base/
+lib/model/map/
+lib/model/om/
