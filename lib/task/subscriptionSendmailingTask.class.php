@@ -40,13 +40,10 @@ EOF;
 		$connection = $databaseManager->getDatabase('propel')->getConnection();
 		
 		try {
-			$lists = twSubscriptionListQuery::create()->find($connection);
-			if ($lists instanceof PropelObjectCollection) {
-				$processed = $notprocessed = 0;
-				twSubscriptionMailingLib::sendMailing($this, $connection, $processed, $notprocessed);
-				$this->task->setCountProcessed($processed);
-				$this->task->setCountNotProcessed($notprocessed);
-			}
+			$processed = $notprocessed = 0;
+			twSubscriptionMailingLib::sendMailing($this, $connection, $processed, $notprocessed);
+			$this->task->setCountProcessed($processed);
+			$this->task->setCountNotProcessed($notprocessed);
 			$this->task->setErrorCode(self::ERROR_CODE_SUCCESS);
 			$this->setOk();
 		} catch (Exception $e) {
