@@ -10,15 +10,18 @@
 class twSubscriptionEmailForm extends BasetwSubscriptionEmailForm {
 	public function configure() {
 		$user = $this->getOption('user');
-		$list_id = $user->getAttribute('twSubscriptionEmail.list_id', null, 'admin_module');
-		if (!is_null($list_id)) {
-			$this->setWidget('list_id', new sfWidgetFormInputHidden());
-			$this->setDefault('list_id', $list_id);
+		if ($user instanceof sfUser) {
+			$list_id = $user->getAttribute('twSubscriptionEmail.list_id', null, 'admin_module');
+			if (!is_null($list_id)) {
+				$this->setWidget('list_id', new sfWidgetFormInputHidden());
+				$this->setDefault('list_id', $list_id);
+			}
 		}
 		
 		$this->validatorSchema['remail'] = new sfValidatorAnd(array(
-			new sfValidatorString(array('max_length' => 250)),
-			new sfValidatorEmail(),
+			new sfValidatorString(array(
+				'max_length' => 250
+			)), new sfValidatorEmail(),
 		));
 		
 		$this->validatorSchema['auth_key'] = new sfValidatorAuthKey();
