@@ -112,14 +112,13 @@ class twSubscriptionMailingLib {
 		
 		$url_chopped = parse_url($path);
 		if (is_array($url_chopped) && in_array('scheme', array_keys($url_chopped)) && in_array($url_chopped['scheme'], $allowed_schemes)) {
-			// TODO: trzeba będzie po sobie jakoś posprzątać po wysłaniu maila
+			// TODO: clean after send mailing
 			$path = self::cacheInternetImage($path);
 			$cid = self::getImageFileCid($path, $messageobj, $task);
 		} else {
-			// TODO: all files are from twMediaPlugin
+			// TODO: clean after send mailing
 			$path = $data['website_base_url'] . urldecode($path);
-			var_dump($path); exit;
-			$path = sfConfig::get('sf_web_dir') . urldecode($path);
+			$path = self::cacheInternetImage($path);
 			$cid = self::getImageFileCid($path, $messageobj, $task);
 		}
 		return stripslashes($prefix) . $cid . stripslashes($suffix);
