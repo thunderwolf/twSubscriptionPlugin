@@ -6,6 +6,10 @@ class subscriptionSendmailingTask extends sfBaseTaskLoggerTask {
 	
 	const ERROR_CODE_FAILURE = -1;
 	const ERROR_CODE_SUCCESS = 1;
+
+	public function logMe($message) {
+		$this->printAndLog($message);
+	}
 	
 	protected function configure() {
 		parent::configure();

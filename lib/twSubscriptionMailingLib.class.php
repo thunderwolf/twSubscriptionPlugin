@@ -53,7 +53,7 @@ class twSubscriptionMailingLib {
 					$notprocessed++;
 				}
 			} catch (Exception $e) {
-				$task->printAndLog($e->getMessage());
+				$task->logMe($e->getMessage());
 				continue;
 			}
 		}
@@ -116,6 +116,9 @@ class twSubscriptionMailingLib {
 			$path = self::cacheInternetImage($path);
 			$cid = self::getImageFileCid($path, $messageobj, $task);
 		} else {
+			// TODO: all files are from twMediaPlugin
+			$path = $data['website_base_url'] . urldecode($path);
+			var_dump($path); exit;
 			$path = sfConfig::get('sf_web_dir') . urldecode($path);
 			$cid = self::getImageFileCid($path, $messageobj, $task);
 		}
@@ -126,7 +129,7 @@ class twSubscriptionMailingLib {
 		if (is_file($path)) {
 			$cid = $messageobj->embed(Swift_Image::fromPath($path));
 		} else {
-			$task->printAndLog("Warning: No file '" . $path . "'\n");
+			$task->logMe("Warning: No file '" . $path . "'\n");
 			$cid = '';
 		}
 		return $cid;
@@ -235,7 +238,7 @@ class twSubscriptionMailingLib {
 			$processed++;
 		} catch (Exception $e) {
 			$con->rollBack();
-			$task->printAndLog("Failed: " . $e->getMessage());
+			$task->logMe("Failed: " . $e->getMessage());
 		}
 	}
 	
