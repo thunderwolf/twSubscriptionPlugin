@@ -1,1 +1,7 @@
-Adres <?php echo $email->getRemail() ?> dla listy <?php echo $email->getListName() ?> został zdezaktywowany
+<?php if ($sf_data->getRaw('content')): ?>
+<?php echo $sf_data->getRaw('content') ?>
+<?php else: ?>
+<?php
+include_partial('index', array('email' => $email));
+?>
+<?php endif; ?>
