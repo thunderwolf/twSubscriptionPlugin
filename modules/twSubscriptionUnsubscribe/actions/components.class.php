@@ -1,20 +1,17 @@
 <?php
 
 /**
- * twSubscriptionUnsubscribe actions.
+ * twSubscriptionUnsubscribe components.
  *
  * @package    subskrypcja
  * @subpackage twSubscriptionUnsubscribe
  * @author     Arkadiusz Tułodziecki
  */
-class twSubscriptionUnsubscribeActions extends sfActions {
+class twSubscriptionUnsubscribeComponents extends sfComponents {
 	public function executeIndex($request) {
 		$list_id = $request->getParameter('id');
 		$auth_key = $request->getParameter('auth_key');
 		
 		$this->email = twSubscriptionEmailQuery::create()->unsubscribe($auth_key, $list_id);
-		if (!$this->email) {
-			$this->forward404();
-		}
 	}
 }
