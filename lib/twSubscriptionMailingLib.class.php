@@ -197,7 +197,7 @@ class twSubscriptionMailingLib {
 		if (($data['subscription_base_url'] == $data['website_base_url']) or empty($data['website_base_url'])) {
 			$message = str_replace('{unsubscribe}', $data['subscription_base_url'] . 'unsubscribe/' . $data['list_id'] . '/' . $data['unsubscribe'], $message);
 		} else {
-			$message = str_replace('{unsubscribe}', $data['website_base_url'] . 'subskrypcja.php?cmd=unsubscribe&hash=' . $data['unsubscribe'], $message);
+			$message = str_replace('{unsubscribe}', $data['website_base_url'] . 'subskrypcja.php?cmd=unsubscribe&id='.$data['list_id'].'&auth_key=' . $data['unsubscribe'], $message);
 		}
 		return $message;
 	}
