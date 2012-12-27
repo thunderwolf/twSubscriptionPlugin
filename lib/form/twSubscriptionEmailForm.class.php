@@ -5,7 +5,6 @@
  *
  * @package    form
  * @subpackage tw_subscription_email
- * @version    SVN: $Id: twSubscriptionEmailForm.class.php 505 2011-04-18 23:21:45Z ldath $
  */
 class twSubscriptionEmailForm extends BasetwSubscriptionEmailForm {
 	public function configure() {
