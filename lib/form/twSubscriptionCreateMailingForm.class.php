@@ -11,7 +11,7 @@ class twSubscriptionCreateMailingForm extends sfForm {
 			$editor->config['customConfig'] = '/twSubscriptionPlugin/js/ck_template.js';
 		}
 		
-		$this->setWidget('time_to_send', new sfWidgetFormBootstrapDate(array(), array('class' => 'input-small')));
+		$this->setWidget('time_to_send', new sfWidgetFormInput(array(), array('class' => 'input-large j-datetimepicker')));
 		
 		$this->widgetSchema->setNameFormat('mailing[%s]');
 		
