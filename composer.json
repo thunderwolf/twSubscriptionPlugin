@@ -1,0 +1,10 @@
+{
+    "name": "thunderwolf/tw-subscription-plugin",
+    "type": "symfony1-plugin",
+    "description": "symfony 1.x Thunderwolf Subscription plugin",
+    "keywords": ["symfony", "thunderwolf"],
+    "homepage": "http://thunderwolf.net/",
+    "require": {
+        "composer/installers": "*"
+    }
+}
