@@ -1,5 +1,6 @@
 all:
-  
+  tw_subscription_media_folder: subscription
+
   tw_admin:
     module:
       tw_subscription:
