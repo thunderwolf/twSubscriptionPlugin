@@ -5,6 +5,7 @@
     "keywords": ["symfony", "thunderwolf"],
     "homepage": "http://thunderwolf.net/",
     "require": {
-        "composer/installers": "*"
+        "composer/installers": "*",
+        "thunderwolf/sf-task-logger-plugin": "~1.0.4"
     }
 }
