@@ -1,7 +1,7 @@
 <?php
 
 class subscriptionInstallTask extends sfBaseTask {
-	const VERSION = 3;
+	const VERSION = 4;
 	
 	protected function configure() {
 		$this->addArguments(array(
@@ -136,7 +136,7 @@ EOF;
 		$message_type_i18n->save($connection);
 
 		$message_type = new twSubscriptionMessageType();
-		$message_type->setCode('embed');
+		$message_type->setCode('xhtml-em');
 		$message_type->save($connection);
 
 		$message_type_i18n = new twSubscriptionMessageTypeI18n();
@@ -159,13 +159,13 @@ EOF;
 		$setup_i18n = new twSubscriptionSetupI18n();
 		$setup_i18n->settwSubscriptionSetup($setup);
 		$setup_i18n->setCulture('en');
-		$setup_i18n->setName("'To add to list: {list}, please click a link {auth_link}'");
+		$setup_i18n->setName("To add to list: {list}, please click a link {auth_link}");
 		$setup_i18n->save($connection);
 
 		$setup_i18n = new twSubscriptionSetupI18n();
 		$setup_i18n->settwSubscriptionSetup($setup);
 		$setup_i18n->setCulture('pl');
-		$setup_i18n->setName("'Prosimy o zaakceptowanie dodania się do listy {list}. By to zrobić należy kliknąć link {auth_link}'");
+		$setup_i18n->setName("Prosimy o zaakceptowanie dodania się do listy {list}. By to zrobić należy kliknąć link {auth_link}");
 		$setup_i18n->save($connection);
 
 		if ($is_core_plugin) {
