@@ -75,17 +75,53 @@ EOF;
 		
 		twMediaLibrary::createFolder(sfConfig::get('app_tw_subscription_media_folder', 'subscription'), $root, $connection);
 
-		$stats = new twSubscriptionStatus();
-		$stats->setCode('active');
-		$stats->save($connection);
+		$status = new twSubscriptionStatus();
+		$status->setCode('active');
+		$status->save($connection);
 
-		$stats = new twSubscriptionStatus();
-		$stats->setCode('pending');
-		$stats->save($connection);
+		$status_i18n = new twSubscriptionStatusI18n();
+		$status_i18n->settwSubscriptionStatus($status);
+		$status_i18n->setCulture('en');
+		$status_i18n->setName('Active');
+		$status_i18n->save($connection);
 
-		$stats = new twSubscriptionStatus();
-		$stats->setCode('disabled');
-		$stats->save($connection);
+		$status_i18n = new twSubscriptionStatusI18n();
+		$status_i18n->settwSubscriptionStatus($status);
+		$status_i18n->setCulture('pl');
+		$status_i18n->setName('Aktywny');
+		$status_i18n->save($connection);
+
+		$status = new twSubscriptionStatus();
+		$status->setCode('pending');
+		$status->save($connection);
+
+		$status_i18n = new twSubscriptionStatusI18n();
+		$status_i18n->settwSubscriptionStatus($status);
+		$status_i18n->setCulture('en');
+		$status_i18n->setName('Pending');
+		$status_i18n->save($connection);
+
+		$status_i18n = new twSubscriptionStatusI18n();
+		$status_i18n->settwSubscriptionStatus($status);
+		$status_i18n->setCulture('pl');
+		$status_i18n->setName('Oczekujący');
+		$status_i18n->save($connection);
+
+		$status = new twSubscriptionStatus();
+		$status->setCode('disabled');
+		$status->save($connection);
+
+		$status_i18n = new twSubscriptionStatusI18n();
+		$status_i18n->settwSubscriptionStatus($status);
+		$status_i18n->setCulture('en');
+		$status_i18n->setName('Disabled');
+		$status_i18n->save($connection);
+
+		$status_i18n = new twSubscriptionStatusI18n();
+		$status_i18n->settwSubscriptionStatus($status);
+		$status_i18n->setCulture('pl');
+		$status_i18n->setName('Wyłączony');
+		$status_i18n->save($connection);
 
 		$list_type = new twSubscriptionListType();
 		$list_type->setCode('standard');
