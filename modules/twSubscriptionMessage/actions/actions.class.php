@@ -9,7 +9,6 @@ require_once dirname(__FILE__) . '/../lib/twSubscriptionMessageGeneratorHelper.c
  * @package    pzmtravel
  * @subpackage twSubscriptionMessage
  * @author     Your name here
- * @version    SVN: $Id: actions.class.php 1022 2012-10-04 22:01:20Z ldath $
  */
 class twSubscriptionMessageActions extends autoTwSubscriptionMessageActions {
 	public function preExecute() {

@@ -52,17 +52,17 @@ class EncodedSubskrypcja
 				break;
 				
 			// modules
-			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionApi' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'actions.class.php';
 			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionApi' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'components.class.php';
-			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionEmail' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'actions.class.php';
-			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionInfo' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'actions.class.php';
-			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionList' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'actions.class.php';
-			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionMailing' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'actions.class.php';
-			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionMailQueue' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'actions.class.php';
-			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionMailSent' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'actions.class.php';
-			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionMessage' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'actions.class.php';
-			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionSetup' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'actions.class.php';
-			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionTemplate' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'actions.class.php';
+			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionApi' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'components.class.php';
+			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionEmail' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'components.class.php';
+			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionInfo' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'components.class.php';
+			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionList' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'components.class.php';
+			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionMailing' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'components.class.php';
+			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionMailQueue' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'components.class.php';
+			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionMailSent' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'components.class.php';
+			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionMessage' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'components.class.php';
+			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionSetup' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'components.class.php';
+			//require_once sfConfig::get('sf_plugins_dir') . DIRECTORY_SEPARATOR . 'twSubscriptionPlugin' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'twSubscriptionTemplate' . DIRECTORY_SEPARATOR . 'actions' . DIRECTORY_SEPARATOR . 'components.class.php';
 		}
 	}
 }

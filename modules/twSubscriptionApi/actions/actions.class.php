@@ -10,7 +10,6 @@ require_once sfConfig::get('sf_lib_dir') . '/vendor/swift/Swift/Authenticator/LO
  * @package    subskrypcja
  * @subpackage twSubscriptionApi
  * @author     Arkadiusz Tułodziecki
- * @version    SVN: $Id: actions.class.php 499 2011-03-02 20:58:47Z ldath $
  */
 class twSubscriptionApiActions extends sfActions
 {
@@ -136,20 +135,19 @@ class twSubscriptionApiActions extends sfActions
 					'from' => $list->getMailfrom(),
 					'confirm_link' => $list->getWebsiteBaseUrl() . '/subskrypcja.php?cmd=confirm&hash=' . $tw_subscription_email->getAuthKey(),
 				));
-				
-				$conn = new Swift_Connection_SMTP(
-					$list->getSmtphost(),
-					$list->getSmtpport() ? $list->getSmtpport() : null,
-					$list->getSmtpencr() ? Swift_Connection_SMTP::ENC_TLS : null
-				);
-				
-				$conn->attachAuthenticator(new Swift_Authenticator_LOGIN());
-				
-				$conn->setUsername($list->getSmtpuser());
-				$conn->setPassword($list->getSmtppass());
-				
-				$mailer = new Swift($conn);
-				
+
+				//Create the Transport the call setUsername() and setPassword()
+				// TODO: Trzeba pobierać port oraz typ szyfrowania jeśli istnieje
+				$transport = Swift_SmtpTransport::newInstance()
+					->setHost($list->getSmtphost())
+					->setPort($list->getSmtpport())
+//					->setPort(465)
+//					->setEncryption('ssl')
+					->setUsername($list->getSmtpuser())
+					->setPassword($list->getSmtppass());
+				//Create the Mailer using your created Transport
+				$mailer = Swift_Mailer::newInstance($transport);
+
 				$message = new Swift_Message('Potwierdzenie rejestracji na newsletter: '.$list->getListname(), $mailBody, 'text/plain');
 				$mailer->send($message, $email, new Swift_Address($list->getMailfrom()));
 				
