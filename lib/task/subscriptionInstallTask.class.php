@@ -45,7 +45,7 @@ EOF;
 			&& !$this
 				->askConfirmation(
 					array(
-						'WARNING: If you planing to use twCorePlugin version control for twNewsPlugin stop this task and install twCorePlugin first',
+						'WARNING: If you planing to use twCorePlugin version control for twSubscriptionPlugin stop this task and install twCorePlugin first',
 						'Are you sure you want to proceed with install? (y/N)',
 					), 'QUESTION_LARGE', false)) {
 			$this->logSection('twnews', 'Task aborted.');
