@@ -23,7 +23,7 @@ class twSubscriptionPluginConfiguration extends sfPluginConfiguration {
 				$this->dispatcher->connect('routing.load_configuration', array('twSubscriptionAdminRouting', 'addRouteForAdmin' . str_replace('tw', '', $module)));
 			}
 		} else {
-			$modules = array('twSubscriptionUnsubscribe');
+			$modules = array('twSubscriptionSubscribe', 'twSubscriptionUnsubscribe');
 			sfConfig::set('sf_enabled_modules', array_merge((array) sfConfig::get('sf_enabled_modules'), $modules));
 			foreach ($modules as $module) {
 				$this->dispatcher->connect('routing.load_configuration', array('twSubscriptionRouting', 'addRouteFor' . str_replace('tw', '', $module)));
