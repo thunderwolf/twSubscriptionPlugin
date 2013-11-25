@@ -1,7 +1,7 @@
 <?php
 
 /**
- * twSubscriptionSubscribe form.
+ * twSubscriptionSubscribeOld form.
  *
  * @package    form
  * @subpackage tw_subscription_email

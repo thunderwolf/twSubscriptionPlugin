@@ -6,14 +6,16 @@
  * @package    twSubscriptionPlugin
  * @subpackage twSubscriptionSubscribe
  * @author     Arkadiusz Tułodziecki
- * @version    SVN: $Id: actions.class.php 12534 2008-11-01 13:38:27Z Kris.Wallsmith $
  */
 class twSubscriptionSubscribeActions extends sfActions
 {
 	public function executeIndex(sfWebRequest $request) {
 		$this->form = new twSubscriptionSubscribeForm();
 		if ($request->isMethod('post')) {
-			;
+			$this->form->bind($request->getParameter($this->form->getName()), $request->getFiles($this->form->getName()));
+			if ($request->isMethod('post')) {
+				$this->form->save();
+			}
 		}
 	}
 }
