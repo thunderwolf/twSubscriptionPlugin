@@ -11,6 +11,9 @@
 class twSubscriptionSubscribeActions extends sfActions
 {
 	public function executeIndex(sfWebRequest $request) {
-		;
+		$this->form = new twSubscriptionSubscribeForm();
+		if ($request->isMethod('post')) {
+			;
+		}
 	}
 }
