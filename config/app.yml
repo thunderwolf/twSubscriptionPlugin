@@ -51,8 +51,8 @@ all:
             label: Templates
             url:   '@tw_subscription_template'
             credentials: [subscription]
-          tw_subscription_setup:
-            label: Setup
-            url:   '@tw_subscription_setup'
+          tw_subscription_list_invitation:
+            label: List Invitations
+            url:   '@tw_subscription_list_invitation'
             credentials: [subscription]
     

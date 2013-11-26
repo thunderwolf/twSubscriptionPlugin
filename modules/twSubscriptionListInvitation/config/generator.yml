@@ -1,13 +1,13 @@
 generator:
   class: sfPropelGenerator
   param:
-    model_class:           twSubscriptionSetup
+    model_class:           twSubscriptionListInvitation
     theme:                 twadmin15
     non_verbose_templates: true
     with_show:             false
     singular:              ~
     plural:                ~
-    route_prefix:          tw_subscription_setup
+    route_prefix:          tw_subscription_list_invitation
     with_propel_route:     1
 
     config:

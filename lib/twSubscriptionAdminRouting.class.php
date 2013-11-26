@@ -97,12 +97,12 @@ class twSubscriptionAdminRouting {
 		)));
 	}
 
-	static public function addRouteForAdminSubscriptionSetup(sfEvent $event) {
-		$event->getSubject()->prependRoute('tw_subscription_setup', new sfPropelORMRouteCollection(array(
-			'name' => 'tw_subscription_setup',
-			'model' => 'twSubscriptionSetup',
-			'module' => 'twSubscriptionSetup',
-			'prefix_path' => 'tw_subscription_setup',
+	static public function addRouteForAdminSubscriptionListInvitation(sfEvent $event) {
+		$event->getSubject()->prependRoute('tw_subscription_list_invitation', new sfPropelORMRouteCollection(array(
+			'name' => 'tw_subscription_list_invitation',
+			'model' => 'twSubscriptionListInvitation',
+			'module' => 'twSubscriptionListInvitation',
+			'prefix_path' => 'tw_subscription_list_invitation',
 			'with_wildcard_routes' => true,
 			'requirements' => array()
 		)));

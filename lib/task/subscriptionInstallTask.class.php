@@ -187,23 +187,6 @@ EOF;
 		$message_type_i18n->setName('Wiadomość XHTML z wbudowaniem zdjęć');
 		$message_type_i18n->save($connection);
 
-		$setup = new twSubscriptionSetup();
-		$setup->setCode('invitation');
-		$setup->setIsHtml(false);
-		$setup->save($connection);
-
-		$setup_i18n = new twSubscriptionSetupI18n();
-		$setup_i18n->settwSubscriptionSetup($setup);
-		$setup_i18n->setCulture('en');
-		$setup_i18n->setName("To add to list: {list}, please click a link {auth_link}");
-		$setup_i18n->save($connection);
-
-		$setup_i18n = new twSubscriptionSetupI18n();
-		$setup_i18n->settwSubscriptionSetup($setup);
-		$setup_i18n->setCulture('pl');
-		$setup_i18n->setName("Prosimy o zaakceptowanie dodania się do listy {list}. By to zrobić należy kliknąć link {auth_link}");
-		$setup_i18n->save($connection);
-
 		if ($is_core_plugin) {
 			$tw_version = new twVersion();
 			$tw_version->setName('db.subscription');

@@ -215,21 +215,4 @@
       <index-column name="time_to_send" />
     </index>
   </table>
-
-  <table name="tw_subscription_setup" phpName="twSubscriptionSetup" isI18N="true" i18nTable="tw_subscription_setup_i18n">
-    <column name="id" type="INTEGER" required="true" autoIncrement="true" primaryKey="true" />
-    <column name="code" type="VARCHAR" size="250" required="true" />
-    <column name="is_html" type="BOOLEAN" required="true" default="0" />
-  </table>
-
-  <table name="tw_subscription_setup_i18n" phpName="twSubscriptionSetupI18n">
-    <column name="id" type="integer" required="true" primaryKey="true" />
-    <foreign-key foreignTable="tw_subscription_setup">
-      <reference local="id" foreign="id" />
-    </foreign-key>
-    <column name="name" type="VARCHAR" size="250" required="true" />
-    <column name="culture" isCulture="true" type="varchar" size="7" required="true" primaryKey="true" />
-    <column name="value" type="LONGVARCHAR" />
-  </table>
-
 </database>

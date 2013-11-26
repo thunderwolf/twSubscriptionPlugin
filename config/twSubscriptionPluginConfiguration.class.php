@@ -16,7 +16,7 @@ class twSubscriptionPluginConfiguration extends sfPluginConfiguration {
 	 */
 	public function initialize() {
 		if (in_array('twAdmin', sfConfig::get('sf_enabled_modules', array()))) {
-			$modules = array('twSubscriptionInfo', 'twSubscriptionList', 'twSubscriptionEmail', 'twSubscriptionMessage', 'twSubscriptionMailing', 'twSubscriptionMailQueue', 'twSubscriptionMailSent', 'twSubscriptionSetup', 'twSubscriptionTemplate');
+			$modules = array('twSubscriptionInfo', 'twSubscriptionList', 'twSubscriptionEmail', 'twSubscriptionMessage', 'twSubscriptionMailing', 'twSubscriptionMailQueue', 'twSubscriptionMailSent', 'twSubscriptionListInvitation', 'twSubscriptionTemplate');
 			sfConfig::set('sf_enabled_modules', array_merge((array) sfConfig::get('sf_enabled_modules'), $modules));
 			
 			foreach ($modules as $module) {
