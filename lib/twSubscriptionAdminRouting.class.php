@@ -96,7 +96,7 @@ class twSubscriptionAdminRouting {
 			'requirements' => array()
 		)));
 	}
-	
+
 	static public function addRouteForAdminSubscriptionSetup(sfEvent $event) {
 		$event->getSubject()->prependRoute('tw_subscription_setup', new sfPropelORMRouteCollection(array(
 			'name' => 'tw_subscription_setup',
@@ -107,7 +107,7 @@ class twSubscriptionAdminRouting {
 			'requirements' => array()
 		)));
 	}
-	
+
 	static public function addRouteForAdminSubscriptionTemplate(sfEvent $event) {
 		$event->getSubject()->prependRoute('tw_subscription_template', new sfPropelORMRouteCollection(array(
 			'name' => 'tw_subscription_template',
