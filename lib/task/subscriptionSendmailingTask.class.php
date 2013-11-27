@@ -45,7 +45,7 @@ EOF;
 		
 		try {
 			$processed = $notprocessed = 0;
-			twSubscriptionMailingLib::sendMailing($this, $connection, $processed, $notprocessed);
+			twSubscriptionMailingLib::sendMailing($connection, $processed, $notprocessed, $this);
 			$this->task->setCountProcessed($processed);
 			$this->task->setCountNotProcessed($notprocessed);
 			$this->task->setErrorCode(self::ERROR_CODE_SUCCESS);
