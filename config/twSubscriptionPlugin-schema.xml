@@ -61,8 +61,8 @@
 		<column name="smtpencr" type="integer"/>
 		<column name="smtpuser" type="VARCHAR" size="50"/>
 		<column name="smtppass" type="VARCHAR" size="50"/>
-		<column name="website_base_url" type="VARCHAR" size="250" required="true"/>
-		<column name="website_shared_key" type="VARCHAR" size="40" required="true"/>
+		<column name="website_base_url" type="VARCHAR" size="250" required="false"/>
+		<column name="website_shared_key" type="VARCHAR" size="40" required="false"/>
 		<column name="lastsync_at" type="TIMESTAMP"/>
 	</table>
 
@@ -172,12 +172,14 @@
 		<foreign-key foreignTable="tw_subscription_message_type" onDelete="cascade">
 			<reference local="type_id" foreign="id"/>
 		</foreign-key>
+		<column name="message_type" type="varchar" size="8"/>
 		<column name="subject" type="LONGVARCHAR" required="true"/>
 		<column name="message" type="LONGVARCHAR" required="true"/>
 		<column name="list_id" type="INTEGER" required="true"/>
 		<foreign-key foreignTable="tw_subscription_list" onDelete="cascade">
 			<reference local="list_id" foreign="id"/>
 		</foreign-key>
+		<column name="list_type" type="varchar" size="20"/>
 		<column name="fromname" type="VARCHAR" size="250"/>
 		<column name="mailfrom" type="VARCHAR" size="250" required="true"/>
 		<column name="smtphost" type="VARCHAR" size="150"/>

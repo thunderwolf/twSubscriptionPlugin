@@ -139,6 +139,22 @@ EOF;
 		$list_type_i18n->setName('Lista standardowa');
 		$list_type_i18n->save($connection);
 
+		$list_type = new twSubscriptionListType();
+		$list_type->setCode('external');
+		$list_type->save($connection);
+
+		$list_type_i18n = new twSubscriptionListTypeI18n();
+		$list_type_i18n->settwSubscriptionListType($list_type);
+		$list_type_i18n->setCulture('en');
+		$list_type_i18n->setName('External list');
+		$list_type_i18n->save($connection);
+
+		$list_type_i18n = new twSubscriptionListTypeI18n();
+		$list_type_i18n->settwSubscriptionListType($list_type);
+		$list_type_i18n->setCulture('pl');
+		$list_type_i18n->setName('Lista zewnętrzna');
+		$list_type_i18n->save($connection);
+
 		$message_type = new twSubscriptionMessageType();
 		$message_type->setCode('text');
 		$message_type->save($connection);

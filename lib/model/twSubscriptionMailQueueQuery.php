@@ -18,5 +18,37 @@
  * @package    propel.generator.plugins.twSubscriptionPlugin.lib.model
  */
 class twSubscriptionMailQueueQuery extends BasetwSubscriptionMailQueueQuery {
+	static public function getMailingData(PropelPDO $connection)
+	{
+		$sth = $connection->prepare('
+			SELECT smtphost, smtpuser, smtppass, mailfrom, remail, subject, message, id, mailing_id, time_to_send, type_id, rname, unsubscribe, website_base_url, subscription_base_url, fromname, list_id
+			FROM tw_subscription_mail_queue
+			WHERE time_to_send < NOW()
+		');
+		$sth->execute();
 
+		return $sth->fetchAll();
+	}
+
+	static public function delFromQueue(PropelPDO $connection, $row)
+	{
+		$stmt = $connection->prepare('
+					INSERT INTO tw_subscription_mail_sent
+						(mailing_id, time_to_send, sender, remail, body, created_at)
+					VALUES
+						(:mailing_id, :time_to_send, :sender, :remail, :body, NOW())
+					');
+
+		$stmt->bindParam(':mailing_id', $row['mailing_id']);
+		$stmt->bindParam(':time_to_send', $row['time_to_send']);
+		$stmt->bindParam(':sender', $row['mailfrom']);
+		$stmt->bindParam(':remail', $row['remail']);
+		$stmt->bindParam(':body', $row['message']);
+		$stmt->execute();
+
+		$stmt = $connection->prepare('DELETE FROM tw_subscription_mail_queue WHERE id = :id');
+		$stmt->bindParam(':id', $row['id']);
+		$stmt->execute();
+
+	}
 } // twSubscriptionMailQueueQuery

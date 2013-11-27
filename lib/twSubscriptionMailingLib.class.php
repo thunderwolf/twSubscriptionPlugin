@@ -17,33 +17,16 @@ class twSubscriptionMailingLib
 		$mailing->save();
 	}
 
-	static public function sendMailing($connection, &$processed, &$notprocessed, sfBaseTask $task)
+	static public function sendMailing($connection, &$processed, &$not_processed, sfBaseTask $task)
 	{
-		$sth = $connection->prepare('
-			SELECT smtphost, smtpuser, smtppass, mailfrom, remail, subject, message, id, mailing_id, time_to_send, type_id, rname, unsubscribe, website_base_url, subscription_base_url, fromname, list_id
-			FROM tw_subscription_mail_queue
-			WHERE time_to_send < NOW()
-		');
-		$sth->execute();
-
-		$result = $sth->fetchAll();
-
+		$result = twSubscriptionMailQueueQuery::getMailingData($connection);
 		foreach ($result as $row) {
 			try {
-				$ret = self::sendMessage(
-					$row['type_id'],
-					$row,
-					$row['smtphost'],
-					$row['smtpuser'],
-					$row['smtppass'],
-					$row['smtpport'],
-					$row['smtpencr'],
-					$task
-				);
+				$ret = self::sendMailingMessage($row, $task);
 				if ($ret) {
 					self::delFromQueue($row, $connection, $processed, $task);
 				} else {
-					$notprocessed++;
+					$not_processed++;
 				}
 			} catch (Exception $e) {
 				if (!is_null($task)) {
@@ -54,9 +37,40 @@ class twSubscriptionMailingLib
 		}
 	}
 
-	static public function sendMessage(
-		$type_id, $mdata, $smtphost, $smtpuser, $smtppass, $smtpport = 25, $smtpencr = 0, sfBaseTask $task = null
-	)
+	static protected function sendMailingMessage($row, $task = null)
+	{
+		$params = array(
+			'email' => $row['remail'],
+			'fullname' => $row['rname'],
+			'unsubscribe' => $row['unsublink'],
+			'subscription_base_url' => $row['subscription_base_url'],
+			'website_base_url' => $row['website_base_url']
+		);
+		$transport = self::getTransport(
+			$row['smtphost'],
+			$row['smtpuser'],
+			$row['smtppass'],
+			$row['smtpport'],
+			$row['smtpencr']
+		);
+		$base_message_obj = self::getBaseMessageObject(
+			$row['subject'],
+			$row['mailfrom'],
+			$row['remail'],
+			$row['fromname'],
+			$row['rname']
+		);
+		$message_obj = self::getMessageObject(
+			$row['message_type'],
+			$row['message'],
+			$base_message_obj,
+			$params,
+			$task
+		);
+		return self::sendPreparedMessage($message_obj, $transport, $task);
+	}
+
+	static protected function getTransport($smtphost, $smtpuser, $smtppass, $smtpport = 25, $smtpencr = 0)
 	{
 		//Create the Transport the call setUsername() and setPassword()
 		$transport = Swift_SmtpTransport::newInstance()
@@ -67,49 +81,70 @@ class twSubscriptionMailingLib
 		if ($smtpencr == 1) {
 			$transport->setEncryption('ssl');
 		}
-		//Create the Mailer using your created Transport
-		$mailer = Swift_Mailer::newInstance($transport);
+		return $transport;
+	}
 
-		if ($type_id == 1) {
-			$message = self::preparePlainMessage($mdata);
-		} else if ($type_id == 2) {
-			$message = self::prepareHtmlMessage($mdata);
-		} else {
-			$message = self::prepareEmbededMessage($mdata, $task);
+	static protected function getBaseMessageObject(
+		$subject, $from_email, $recipient_email, $from_name = null, $recipient_name = null
+	)
+	{
+		return Swift_Message::newInstance($subject)
+			->setFrom($from_email, $from_name)
+			->setTo($recipient_email, $recipient_name);
+	}
+
+	static protected function getMessageObject(
+		$message_type, $message_data, Swift_Message $message_obj, $params = null, sfBaseTask $task = null
+	)
+	{
+		switch ($message_type) {
+			case 'text':
+				$message = self::preparePlainMessage($message_obj, $message_data, $params);
+				break;
+			case 'xhtml':
+				$message = self::prepareHtmlMessage($message_obj, $message_data, $params);
+				break;
+			case 'xhtml-em':
+				$message = self::prepareEmbededMessage($message_obj, $message_data, $params, $task);
+				break;
+			default:
+				throw new Exception('Not known message type');
 		}
-		return $mailer->send($message);
-	}
-
-	static public function preparePlainMessage($data)
-	{
-		$body = self::standardReplace($data['message'], $data);
-		return Swift_Message::newInstance($data['subject'])->setFrom($data['mailfrom'])->setTo($data['remail'])->setBody($body);
-	}
-
-	static public function prepareHtmlMessage($data)
-	{
-		$html = self::standardReplace($data['message'], $data);
-		$html = self::expandHtmlTags($html, $data);
-		$text = self::getPlainFromHtml($html);
-
-		$message = Swift_Message::newInstance($data['subject'])->setFrom($data['mailfrom'])->setTo($data['remail']);
-
-		$message->setBody($html, 'text/html');
-		$message->addPart($text, 'text/plain');
 		return $message;
 	}
 
-	static public function prepareEmbededMessage($data, $task = null)
+	static protected function sendPreparedMessage(Swift_Message $message_obj, Swift_SmtpTransport $transport)
 	{
-		$message = Swift_Message::newInstance($data['subject'])->setFrom($data['mailfrom'])->setTo($data['remail']);
+		$mailer = Swift_Mailer::newInstance($transport);
+		return $mailer->send($message_obj);
+	}
 
-		$html = self::standardReplace($data['message'], $data);
-		$html = self::embedHtmlTags($html, $data, $message, $task);
+	static public function preparePlainMessage(Swift_Message $message_obj, $message_data, $params)
+	{
+		$body = self::standardReplace($message_data, $params);
+		return $message_obj->setBody($body);
+	}
+
+	static public function prepareHtmlMessage(Swift_Message $message_obj, $message_data, $params)
+	{
+		$html = self::standardReplace($message_data, $params);
+		$html = self::expandHtmlTags($html, $params);
 		$text = self::getPlainFromHtml($html);
 
-		$message->setBody($html, 'text/html');
-		$message->addPart($text, 'text/plain');
-		return $message;
+		$message_obj->setBody($html, 'text/html');
+		$message_obj->addPart($text, 'text/plain');
+		return $message_obj;
+	}
+
+	static public function prepareEmbededMessage(Swift_Message $message_obj, $message_data, $params, $task = null)
+	{
+		$html = self::standardReplace($message_data, $params);
+		$html = self::embedHtmlTags($html, $params, $message_obj, $task);
+		$text = self::getPlainFromHtml($html);
+
+		$message_obj->setBody($html, 'text/html');
+		$message_obj->addPart($text, 'text/plain');
+		return $message_obj;
 	}
 
 	static protected function expandHtmlTags($message, $data)
@@ -225,15 +260,10 @@ class twSubscriptionMailingLib
 
 	static protected function standardReplace($message, $data)
 	{
-		$message = str_replace('{email}', $data['remail'], $message);
-		$message = str_replace('{fullname}', $data['rname'], $message);
-		// TODO: make it better !!!!
-// 		if (($data['subscription_base_url'] == $data['website_base_url']) or empty($data['website_base_url'])) {
-		$message = str_replace('{unsubscribe}', $data['subscription_base_url'] . 'unsubscribe/' . $data['list_id'] . '/' . $data['unsubscribe'], $message);
-// 		} else {
-// 			$message = str_replace('{unsubscribe}', $data['website_base_url'] . 'subskrypcja.php?cmd=unsubscribe&id='.$data['list_id'].'&auth_key=' . $data['unsubscribe'], $message);
-// 		}
-		return $message;
+		$loader = new Twig_Loader_String();
+		$twig = new Twig_Environment($loader);
+
+		return $twig->render($message, $data);
 	}
 
 	static protected function getPlainFromHtml($html)
@@ -251,24 +281,7 @@ class twSubscriptionMailingLib
 	{
 		$con->beginTransaction();
 		try {
-			$stmt = $con->prepare('
-					INSERT INTO tw_subscription_mail_sent
-						(mailing_id, time_to_send, sender, remail, body, created_at)
-					VALUES
-						(:mailing_id, :time_to_send, :sender, :remail, :body, NOW())
-					');
-
-			$stmt->bindParam(':mailing_id', $row['mailing_id']);
-			$stmt->bindParam(':time_to_send', $row['time_to_send']);
-			$stmt->bindParam(':sender', $row['mailfrom']);
-			$stmt->bindParam(':remail', $row['remail']);
-			$stmt->bindParam(':body', $row['message']);
-			$stmt->execute();
-
-			$stmt = $con->prepare('DELETE FROM tw_subscription_mail_queue WHERE id = :id');
-			$stmt->bindParam(':id', $row['id']);
-			$stmt->execute();
-
+			twSubscriptionMailQueueQuery::delFromQueue($con, $row);
 			$con->commit();
 			$processed++;
 		} catch (Exception $e) {
