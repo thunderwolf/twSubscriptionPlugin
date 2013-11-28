@@ -15,8 +15,8 @@ class twSubscriptionRouting {
 	}
 
 	static public function addRouteForSubscriptionUnsubscribe(sfEvent $event) {
-		$unsubscribe_folder = sfConfig::get('app_tw_subscription_unsubscribe_prefix', 'unsubscribe');
-		$event->getSubject()->prependRoute('subscription_unsubscribe', new sfRoute('/'.$unsubscribe_folder.'/:id/:auth_key', array(
+		$un_subscribe_folder = sfConfig::get('app_tw_subscription_unsubscribe_prefix', 'unsubscribe');
+		$event->getSubject()->prependRoute('subscription_unsubscribe', new sfRoute('/'.$un_subscribe_folder.'/:id/:auth_key', array(
 				'module' => 'twSubscriptionUnsubscribe', 'action' => 'index'
 		), array(), array()));
 	}

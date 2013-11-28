@@ -7,26 +7,23 @@
  * @subpackage routing
  * @author     Arkadiusz Tułodziecki
  */
-class twSubscriptionAdminRouting {
-	static public function addRouteForAdminSubscriptionInfo(sfEvent $event) {
-		$event->getSubject()
-			->prependRoute('tw_subscription_info',
-				new sfRoute('/tw_subscription_info', array(
-					'module' => 'twSubscriptionInfo', 'action' => 'index'
-				), array(), array()));
-		$event->getSubject()
-			->prependRoute('tw_subscription_faq',
-				new sfRoute('/tw_subscription_faq', array(
-					'module' => 'twSubscriptionInfo', 'action' => 'pytania'
-				), array(), array()));
-		$event->getSubject()
-			->prependRoute('tw_subscription_import',
-				new sfRoute('/tw_subscription_import', array(
-					'module' => 'twSubscriptionInfo', 'action' => 'import'
-				), array(), array()));
+class twSubscriptionAdminRouting
+{
+	static public function addRouteForAdminSubscriptionInfo(sfEvent $event)
+	{
+		$event->getSubject()->prependRoute('tw_subscription_info', new sfRoute(
+				'/tw_subscription_info', array('module' => 'twSubscriptionInfo', 'action' => 'index'), array(), array())
+		);
+		$event->getSubject()->prependRoute('tw_subscription_faq', new sfRoute(
+				'/tw_subscription_faq', array('module' => 'twSubscriptionInfo', 'action' => 'pytania'), array(), array())
+		);
+		$event->getSubject()->prependRoute('tw_subscription_import', new sfRoute(
+				'/tw_subscription_import', array('module' => 'twSubscriptionInfo', 'action' => 'import'), array(), array())
+		);
 	}
-	
-	static public function addRouteForAdminSubscriptionList(sfEvent $event) {
+
+	static public function addRouteForAdminSubscriptionList(sfEvent $event)
+	{
 		$event->getSubject()->prependRoute('tw_subscription_list', new sfPropelORMRouteCollection(array(
 			'name' => 'tw_subscription_list',
 			'model' => 'twSubscriptionList',
@@ -36,8 +33,9 @@ class twSubscriptionAdminRouting {
 			'requirements' => array()
 		)));
 	}
-	
-	static public function addRouteForAdminSubscriptionEmail(sfEvent $event) {
+
+	static public function addRouteForAdminSubscriptionEmail(sfEvent $event)
+	{
 		$event->getSubject()->prependRoute('tw_subscription_email', new sfPropelORMRouteCollection(array(
 			'name' => 'tw_subscription_email',
 			'model' => 'twSubscriptionEmail',
@@ -46,14 +44,13 @@ class twSubscriptionAdminRouting {
 			'with_wildcard_routes' => true,
 			'requirements' => array()
 		)));
-		$event->getSubject()
-			->prependRoute('tw_subscription_email_clean',
-				new sfRoute('/tw_subscription_email_clean', array(
-					'module' => 'twSubscriptionEmail', 'action' => 'ListClean'
-				), array(), array()));
+		$event->getSubject()->prependRoute('tw_subscription_email_clean',
+			new sfRoute('/tw_subscription_email_clean', array('module' => 'twSubscriptionEmail', 'action' => 'ListClean'), array(), array())
+		);
 	}
-	
-	static public function addRouteForAdminSubscriptionMessage(sfEvent $event) {
+
+	static public function addRouteForAdminSubscriptionMessage(sfEvent $event)
+	{
 		$event->getSubject()->prependRoute('tw_subscription_message', new sfPropelORMRouteCollection(array(
 			'name' => 'tw_subscription_message',
 			'model' => 'twSubscriptionMessage',
@@ -63,8 +60,9 @@ class twSubscriptionAdminRouting {
 			'requirements' => array()
 		)));
 	}
-	
-	static public function addRouteForAdminSubscriptionMailing(sfEvent $event) {
+
+	static public function addRouteForAdminSubscriptionMailing(sfEvent $event)
+	{
 		$event->getSubject()->prependRoute('tw_subscription_mailing', new sfPropelORMRouteCollection(array(
 			'name' => 'tw_subscription_mailing',
 			'model' => 'twSubscriptionMailing',
@@ -74,8 +72,9 @@ class twSubscriptionAdminRouting {
 			'requirements' => array()
 		)));
 	}
-	
-	static public function addRouteForAdminSubscriptionMailQueue(sfEvent $event) {
+
+	static public function addRouteForAdminSubscriptionMailQueue(sfEvent $event)
+	{
 		$event->getSubject()->prependRoute('tw_subscription_mail_queue', new sfPropelORMRouteCollection(array(
 			'name' => 'tw_subscription_mail_queue',
 			'model' => 'twSubscriptionMailQueue',
@@ -85,8 +84,9 @@ class twSubscriptionAdminRouting {
 			'requirements' => array()
 		)));
 	}
-	
-	static public function addRouteForAdminSubscriptionMailSent(sfEvent $event) {
+
+	static public function addRouteForAdminSubscriptionMailSent(sfEvent $event)
+	{
 		$event->getSubject()->prependRoute('tw_subscription_mail_sent', new sfPropelORMRouteCollection(array(
 			'name' => 'tw_subscription_mail_sent',
 			'model' => 'twSubscriptionMailSent',
@@ -97,7 +97,8 @@ class twSubscriptionAdminRouting {
 		)));
 	}
 
-	static public function addRouteForAdminSubscriptionListInvitation(sfEvent $event) {
+	static public function addRouteForAdminSubscriptionListInvitation(sfEvent $event)
+	{
 		$event->getSubject()->prependRoute('tw_subscription_list_invitation', new sfPropelORMRouteCollection(array(
 			'name' => 'tw_subscription_list_invitation',
 			'model' => 'twSubscriptionListInvitation',
@@ -108,7 +109,8 @@ class twSubscriptionAdminRouting {
 		)));
 	}
 
-	static public function addRouteForAdminSubscriptionTemplate(sfEvent $event) {
+	static public function addRouteForAdminSubscriptionTemplate(sfEvent $event)
+	{
 		$event->getSubject()->prependRoute('tw_subscription_template', new sfPropelORMRouteCollection(array(
 			'name' => 'tw_subscription_template',
 			'model' => 'twSubscriptionTemplate',

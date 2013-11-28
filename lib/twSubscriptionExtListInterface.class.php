@@ -2,7 +2,7 @@
 
 interface twSubscriptionExtListInterface {
 	/**
-	 * Method used to synchroinize list with external source of data
+	 * Method used to synchronize list with external source of data
 	 *
 	 * @param int $list_id
 	 * @param sfUser $user
