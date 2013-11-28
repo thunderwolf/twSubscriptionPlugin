@@ -7,7 +7,9 @@
  * @subpackage filter
  * @author     Arkadiusz Tułodziecki
  */
-class twSubscriptionStatusFormFilter extends BasetwSubscriptionStatusFormFilter {
-	public function configure() {
+class twSubscriptionStatusFormFilter extends BasetwSubscriptionStatusFormFilter
+{
+	public function configure()
+	{
 	}
 }

@@ -7,12 +7,15 @@
  *
  * @package plugins.twSubscriptionPlugin.lib.model
  */
-class twSubscriptionEmail extends BasetwSubscriptionEmail {
-	public function getListname() {
-		return $this->gettwSubscriptionList()->getListname();
+class twSubscriptionEmail extends BasetwSubscriptionEmail
+{
+	public function getListname()
+	{
+		return $this->gettwSubscriptionList()->getListName();
 	}
-	
-	public function getStatus() {
+
+	public function getStatus()
+	{
 		return $this->gettwSubscriptionStatus()->getName();
 	}
 }

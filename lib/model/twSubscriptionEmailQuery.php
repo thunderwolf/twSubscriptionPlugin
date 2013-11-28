@@ -17,8 +17,10 @@
  *
  * @package    propel.generator.plugins.twSubscriptionPlugin.lib.model
  */
-class twSubscriptionEmailQuery extends BasetwSubscriptionEmailQuery {
-	public function unsubscribe($auth_key, $list_id, PropelPDO $con = null) {
+class twSubscriptionEmailQuery extends BasetwSubscriptionEmailQuery
+{
+	public function unsubscribe($auth_key, $list_id, PropelPDO $con = null)
+	{
 		$email = $this->filterByAuthKey($auth_key)->filterByListId($list_id)->findOne($con);
 		if ($email instanceof twSubscriptionEmail) {
 			$status = twSubscriptionStatusQuery::create()->filterByCode('disabled')->findOne($con);

@@ -7,8 +7,10 @@
  *
  * @package plugins.twSubscriptionPlugin.lib.model
  */
-class twSubscriptionMailQueue extends BasetwSubscriptionMailQueue {
-	public function getMessageType() {
+class twSubscriptionMailQueue extends BasetwSubscriptionMailQueue
+{
+	public function getMessageType()
+	{
 		$c = new Criteria();
 		$c->add(twSubscriptionMessageTypePeer::ID, $this->getTypeId());
 		$type = twSubscriptionMessageTypePeer::doSelectWithI18n($c);

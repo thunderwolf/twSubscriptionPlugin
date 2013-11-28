@@ -7,7 +7,9 @@
  * @subpackage filter
  * @author     Arkadiusz Tułodziecki
  */
-class twSubscriptionListInvitationFormFilter extends BasetwSubscriptionListInvitationFormFilter {
-	public function configure() {
+class twSubscriptionListInvitationFormFilter extends BasetwSubscriptionListInvitationFormFilter
+{
+	public function configure()
+	{
 	}
 }

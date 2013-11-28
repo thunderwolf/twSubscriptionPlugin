@@ -7,7 +7,9 @@
  * @subpackage filter
  * @author     Arkadiusz Tułodziecki
  */
-class twSubscriptionMailSentFormFilter extends BasetwSubscriptionMailSentFormFilter {
-	public function configure() {
+class twSubscriptionMailSentFormFilter extends BasetwSubscriptionMailSentFormFilter
+{
+	public function configure()
+	{
 	}
 }

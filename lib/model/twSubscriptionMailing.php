@@ -7,24 +7,30 @@
  *
  * @package plugins.twSubscriptionPlugin.lib.model
  */
-class twSubscriptionMailing extends BasetwSubscriptionMailing {
-	public function __toString() {
+class twSubscriptionMailing extends BasetwSubscriptionMailing
+{
+	public function __toString()
+	{
 		return $this->getMessage();
 	}
-	
-	public function getList() {
-		return $this->gettwSubscriptionList()->getListname();
+
+	public function getList()
+	{
+		return $this->gettwSubscriptionList()->getListName();
 	}
-	
-	public function getMessage() {
+
+	public function getMessage()
+	{
 		return $this->gettwSubscriptionMessage()->getSubject();
 	}
-	
-	public function getInQueue() {
+
+	public function getInQueue()
+	{
 		return $this->counttwSubscriptionMailQueues();
 	}
-	
-	public function getInSent() {
+
+	public function getInSent()
+	{
 		return $this->counttwSubscriptionMailSents();
 	}
 }

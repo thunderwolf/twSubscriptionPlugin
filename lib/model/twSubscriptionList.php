@@ -7,15 +7,18 @@
  *
  * @package plugins.twSubscriptionPlugin.lib.model
  */
-class twSubscriptionList extends BasetwSubscriptionList {
+class twSubscriptionList extends BasetwSubscriptionList
+{
 	public $website_code_js;
 	public $website_code_php;
-	
-	public function __toString() {
+
+	public function __toString()
+	{
 		return $this->getListname();
 	}
-	
-	public function getListType() {
+
+	public function getListType()
+	{
 		$c = new Criteria();
 		$c->add(twSubscriptionListTypePeer::ID, $this->getTypeId());
 		$type = twSubscriptionListTypePeer::doSelectWithI18n($c);
@@ -25,17 +28,23 @@ class twSubscriptionList extends BasetwSubscriptionList {
 			return null;
 		}
 	}
-	
-	public function getMessageTypeId() {
-		$template = twSubscriptionTemplatePeer::retrieveByPK($this->getTemplateId());
-		return $template->getTypeId();
+
+	public function getMessageTypeId()
+	{
+		$template = twSubscriptionTemplateQuery::create()->findPk($this->getTemplateId());
+		if ($template instanceof twSubscriptionTemplate) {
+			return $template->getTypeId();
+		}
+		return null;
 	}
-	
-	public function getEmails() {
+
+	public function getEmails()
+	{
 		return $this->counttwSubscriptionEmails();
 	}
-	
-	public function getCreateMailing() {
+
+	public function getCreateMailing()
+	{
 		return 0;
 	}
 }

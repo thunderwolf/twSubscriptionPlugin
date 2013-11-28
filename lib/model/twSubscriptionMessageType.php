@@ -7,8 +7,10 @@
  *
  * @package plugins.twSubscriptionPlugin.lib.model
  */
-class twSubscriptionMessageType extends BasetwSubscriptionMessageType {
-	public function __toString() {
+class twSubscriptionMessageType extends BasetwSubscriptionMessageType
+{
+	public function __toString()
+	{
 		return $this->getName();
 	}
 }

@@ -15,8 +15,10 @@
  *
  * @package    propel.generator.plugins.twSubscriptionPlugin.lib.model
  */
-class twSubscriptionListQuery extends BasetwSubscriptionListQuery {
-	public function withI18n() {
+class twSubscriptionListQuery extends BasetwSubscriptionListQuery
+{
+	public function withI18n()
+	{
 		// TODO: make it works
 		$this->usetwSubscriptionListTypeQuery()->joinWithI18n();
 	}

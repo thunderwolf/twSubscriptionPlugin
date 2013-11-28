@@ -7,7 +7,9 @@
  * @subpackage filter
  * @author     Arkadiusz Tułodziecki
  */
-class twSubscriptionTemplateFormFilter extends BasetwSubscriptionTemplateFormFilter {
-	public function configure() {
+class twSubscriptionTemplateFormFilter extends BasetwSubscriptionTemplateFormFilter
+{
+	public function configure()
+	{
 	}
 }

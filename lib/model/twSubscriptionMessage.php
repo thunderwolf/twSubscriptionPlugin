@@ -7,14 +7,17 @@
  *
  * @package plugins.twSubscriptionPlugin.lib.model
  */
-class twSubscriptionMessage extends BasetwSubscriptionMessage {
+class twSubscriptionMessage extends BasetwSubscriptionMessage
+{
 	protected $time_to_send;
-	
-	public function __toString() {
+
+	public function __toString()
+	{
 		return $this->getSubject();
 	}
-	
-	public function getMessageType() {
+
+	public function getMessageType()
+	{
 		$c = new Criteria();
 		$c->add(twSubscriptionMessageTypePeer::ID, $this->getTypeId());
 		$type = twSubscriptionMessageTypePeer::doSelectWithI18n($c);
@@ -24,8 +27,9 @@ class twSubscriptionMessage extends BasetwSubscriptionMessage {
 			return null;
 		}
 	}
-	
-	public function getTimeToSend($format = 'Y-m-d H:i:s') {
+
+	public function getTimeToSend($format = 'Y-m-d H:i:s')
+	{
 		if ($this->time_to_send === null || $this->time_to_send === '') {
 			return null;
 		} elseif (!is_int($this->time_to_send)) {
