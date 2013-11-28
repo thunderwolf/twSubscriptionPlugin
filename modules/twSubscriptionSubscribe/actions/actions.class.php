@@ -15,15 +15,15 @@ class twSubscriptionSubscribeActions extends sfActions
 
 		$this->form = new sfForm();
 		$this->form->setWidgets(array(
-			'remail'    => new sfWidgetFormInputText(),
-			'rname'   => new sfWidgetFormInputText()
+			'r_email'    => new sfWidgetFormInputText(),
+			'r_name'   => new sfWidgetFormInputText()
 		));
 
 		$this->form->setValidators(array(
-			'remail' => new sfValidatorAnd(array(
+			'r_email' => new sfValidatorAnd(array(
 					new sfValidatorString(array('max_length' => 250)), new sfValidatorEmail()
 				)),
-			'rname' => new sfValidatorString(array('max_length' => 250, 'required' => false))
+			'r_name' => new sfValidatorString(array('max_length' => 250, 'required' => false))
 		));
 		$this->form->getWidgetSchema()->setNameFormat('subscribe[%s]');
 
@@ -35,7 +35,7 @@ class twSubscriptionSubscribeActions extends sfActions
 
 				$email_list = twSubscriptionEmailQuery::create()
 					->filterBytwSubscriptionList($list)
-					->findOneByRemail($values['remail']);
+					->findOneByREmail($values['remail']);
 
 				if (!$email_list) {
 					$email_list = $this->savePendingEmail($list, $status, $values);
@@ -49,8 +49,8 @@ class twSubscriptionSubscribeActions extends sfActions
 		$email_list = new twSubscriptionEmail();
 		$email_list->settwSubscriptionList($list);
 		$email_list->settwSubscriptionStatus($status);
-		$email_list->setRemail($values['remail']);
-		$email_list->setRname($values['rname']);
+		$email_list->setREmail($values['remail']);
+		$email_list->setRName($values['rname']);
 		$email_list->setExpires(strtotime("+1 day"));
 		$email_list->setAuthKey(microtime(true));
 		$email_list->save();
@@ -59,13 +59,13 @@ class twSubscriptionSubscribeActions extends sfActions
 
 	protected function sendPendingEmail(twSubscriptionList $list, $values)
 	{
-		$message = Swift_Message::newInstance()
-			->setFrom($list->getMailfrom(), $list->getFromname())
-			->setTo($values['remail'], $values['rname'])
-			->setSubject('Powiadomienie o nowym zgłoszeniu kontaktowym')
-			->setBody($body)
-		;
-		$this->getMailer()->send($message);
-
+		// TODO: use MailingLibrary
+//		$message = Swift_Message::newInstance()
+//			->setFrom($list->getFromAddress(), $list->getFromName())
+//			->setTo($values['remail'], $values['rname'])
+//			->setSubject('Powiadomienie o nowym zgłoszeniu kontaktowym')
+//			->setBody($body)
+//		;
+//		$this->getMailer()->send($message);
 	}
 }

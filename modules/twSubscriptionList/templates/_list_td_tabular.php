@@ -1,5 +1,5 @@
 <td class="sf_admin_text sf_admin_list_td_listname">
-	<?php echo $tw_subscription_list->getListname() ?>
+	<?php echo $tw_subscription_list->getListName() ?>
 </td>
 <td class="sf_admin_text sf_admin_list_td_list_type">
 	<?php echo $tw_subscription_list->getListType() ?>

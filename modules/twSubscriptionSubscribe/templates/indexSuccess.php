@@ -7,12 +7,12 @@
 				<p><strong><?php echo $form->renderGlobalErrors() ?></strong></p>
 			<?php endif; ?>
 			<div class="row">
-				<label for="rname">Name<?php if ($form['rname']->hasError()): ?> <strong><?php echo $form['rname']->getError() ?></strong><?php endif;?></label>
-				<?php echo $form['rname']->render(array('id' => 'rname', 'title' => 'Imię i nazwisko')) ?>
+				<label for="r_name">Name<?php if ($form['r_name']->hasError()): ?> <strong><?php echo $form['r_name']->getError() ?></strong><?php endif;?></label>
+				<?php echo $form['r_name']->render(array('id' => 'r_name', 'title' => 'Imię i nazwisko')) ?>
 			</div>
 			<div class="row">
-				<label for="remail">E-mail<?php if ($form['remail']->hasError()): ?> <strong><?php echo $form['remail']->getError() ?></strong><?php endif;?></label>
-				<?php echo $form['remail']->render(array('id' => 'remail', 'title' => 'E-mail')) ?>
+				<label for="r_email">E-mail<?php if ($form['r_email']->hasError()): ?> <strong><?php echo $form['r_email']->getError() ?></strong><?php endif;?></label>
+				<?php echo $form['r_email']->render(array('id' => 'r_email', 'title' => 'E-mail')) ?>
 			</div>
 			<div class="row submit">
 				<button type="submit">Subscribe</button>

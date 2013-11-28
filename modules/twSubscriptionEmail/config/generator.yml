@@ -14,27 +14,27 @@ generator:
       actions: ~
       fields:
         list_id: { label: List name }
-        listname: { label: List name }
-        remail: { label: Recipient email, help: To this email - emails will be sent }
-        rname: { label: Recipient name }
+        list_name: { label: List name }
+        r_email: { label: Recipient email, help: To this email - emails will be sent }
+        r_name: { label: Recipient name }
         auth_key: { label: Unsubscribe code, help: This record will be automaticly set and must be unique }
         status: { label: Email status }
         status_id: { label: Email status }
       
       list:
         title: Your Emails
-        display: [listname, status, remail, rname, created_at]
+        display: [list_name, status, r_email, r_name, created_at]
         max_per_page: 10
         actions:
           _new: ~
           return: { label: powrót do listy, params: { class: 'btn btn-success' } }
       
       filter:
-        display: [list_id, status_id, remail, rname]
+        display: [list_id, status_id, r_email, r_name]
         
       form:    ~
       edit:
         title: > 
-          Your Emails: %%remail%%
+          Your Emails: %%r_email%%
       new:
         title: Add Email to list

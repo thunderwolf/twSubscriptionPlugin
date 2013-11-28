@@ -6,7 +6,6 @@
  * @package    pzmtravel
  * @subpackage twSubscriptionMessage
  * @author     Your name here
- * @version    SVN: $Id: twSubscriptionMessageGeneratorConfiguration.class.php 504 2011-03-16 23:26:14Z ldath $
  */
 class twSubscriptionMessageGeneratorConfiguration extends BaseTwSubscriptionMessageGeneratorConfiguration {
 	protected $user = null;

@@ -39,40 +39,46 @@ class twSubscriptionMailingActions extends autoTwSubscriptionMailingActions {
 	public function executeSendMailing(sfWebRequest $request) {
 		$tw_subscription_mailing = $this->getRoute()->getObject();
 		
-		$tw_subscription_message = twSubscriptionMessagePeer::retrieveByPk($tw_subscription_mailing->getMessageId());
+		$tw_subscription_message = twSubscriptionMessageQuery::create()->findPk($tw_subscription_mailing->getMessageId());
 		$this->forward404Unless($tw_subscription_mailing);
 		
-		$tw_subscription_list = twSubscriptionListPeer::retrieveByPk($tw_subscription_mailing->getListId());
+		$tw_subscription_list = twSubscriptionListQuery::create()->findPk($tw_subscription_mailing->getListId());
 		$this->forward404Unless($tw_subscription_list);
 		
-		$fromname = $tw_subscription_list->getFromname();
-		if (empty($fromname)) {
-			$fromname = $tw_subscription_list->getListname();
+		$from_name = $tw_subscription_list->getFromName();
+		if (empty($from_name)) {
+			$from_name = $tw_subscription_list->getListName();
 		}
-		$mailfrom = $tw_subscription_list->getMailfrom();
-		$smpthhost = $tw_subscription_list->getSmtphost();
-		$smptuser = $tw_subscription_list->getSmtpuser();
-		$smtppass = $tw_subscription_list->getSmtppass();
-		$website_base_url = $tw_subscription_list->getWebsiteBaseUrl();
+		$from_address = $tw_subscription_list->getFromAddress();
+		$smpt_host = $tw_subscription_list->getSmtpHost();
+		$smpt_port = $tw_subscription_list->getSmtpPort();
+		$smpt_encr = $tw_subscription_list->getSmtpEncr();
+		$smpt_user = $tw_subscription_list->getSmtpUser();
+		$smtp_pass = $tw_subscription_list->getSmtpPass();
+		$web_base_url = $tw_subscription_list->getWebBaseUrl();
 		
-		if (empty($mailfrom) or empty($smpthhost) or empty($smptuser) or empty($smtppass)) {
+		if (is_null($from_address) || is_null($smpt_host) || is_null($smpt_port) || is_null($smpt_encr) || is_null($smpt_user) || is_null($smtp_pass)) {
 			$this->getUser()->setFlash('notice', 'Can\'t send Mailing without SMTP server data for list set');
 			return $this->redirect('@tw_subscription_mailing');
 		}
 		
-		$c = new Criteria();
-		$c->add(twSubscriptionEmailPeer::LIST_ID, $tw_subscription_mailing->getListId());
-		$c->addJoin(twSubscriptionEmailPeer::STATUS_ID, twSubscriptionStatusPeer::ID);
-		$c->add(twSubscriptionStatusPeer::CODE, 'active');
-		
-		$tw_subscription_email = twSubscriptionEmailPeer::doSelect($c);
-		if (empty($tw_subscription_email)) {
+		$emails = twSubscriptionEmailQuery::create()
+			->filterByListId($tw_subscription_mailing->getListId())
+			->usetwSubscriptionStatusQuery()
+				->filterByCode('active')
+			->endUse()
+			->find()
+		;
+
+		if (empty($emails)) {
 			$this->getUser()->setFlash('notice', 'No Emails to send');
 			return $this->redirect('@tw_subscription_mailing');
 		}
 		$msg = $tw_subscription_message->getMessage();
 		$type_id = $tw_subscription_message->getTypeId();
-		if ($type_id > 1) {
+		$message_type_obj = twSubscriptionMessageTypeQuery::create()->findPk($type_id);
+		$message_type = $message_type_obj->getCode();
+		if ($message_type != 'text') {
 			if (extension_loaded('tidy')) {
 				$config = array(
 						'indent' => FALSE,
@@ -83,32 +89,43 @@ class twSubscriptionMailingActions extends autoTwSubscriptionMailingActions {
 				tidy_clean_repair($tidy);
 				$msg = $tidy;
 			}
-		
 		}
+		$list_type = twSubscriptionListTypeQuery::create()->findPk($tw_subscription_list->getTypeId());
 		
-		foreach ($tw_subscription_email as $row) {
+		foreach ($emails as $row) {
 			$queue = new twSubscriptionMailQueue();
 			
 			$queue->setMailingId($this->getRequestParameter('id'));
 			
 			$queue->setMessageId($tw_subscription_message->getId());
+
 			$queue->setTypeId($type_id);
+			$queue->setMessageType($message_type);
+
 			$queue->setSubject($tw_subscription_message->getSubject());
 			$queue->setMessage($msg);
 			
 			$queue->setListId($tw_subscription_list->getId());
-			$queue->setFromname($fromname);
-			$queue->setMailfrom($mailfrom);
-			$queue->setSmtphost($smpthhost);
-			$queue->setSmtpuser($smptuser);
-			$queue->setSmtppass($smtppass);
-			$queue->setSubscriptionBaseUrl('http://' . $_SERVER['SERVER_NAME'] . '/');
-			$queue->setWebsiteBaseUrl($website_base_url);
-			
-			$queue->setRemail($row->getRemail());
-			$queue->setRname($row->getRname());
-			$queue->setUnsubscribe($row->getAuthKey());
-			
+			$queue->setListType($list_type->getCode());
+
+			$queue->setFromAddress($from_address);
+			$queue->setFromName($from_name);
+
+			$queue->setSmtpHost($smpt_host);
+			$queue->setSmtpPort($smpt_port);
+			$queue->setSmtpEncr($smpt_encr);
+			$queue->setSmtpUser($smpt_user);
+			$queue->setSmtpPass($smtp_pass);
+
+			$queue->setREmail($row->getREmail());
+			$queue->setRName($row->getRName());
+
+			$queue->setUnSubCode($row->getAuthKey());
+			$queue->setUnSubLink($this->generateUrl('subscription_unsubscribe', array('id' => $tw_subscription_list->getId(), 'auth_key' => $row->getAuthKey())));
+
+			$queue->setSubBaseUrl('http://' . $_SERVER['SERVER_NAME'] . '/');
+			$queue->setWebBaseUrl($web_base_url);
+
 			$queue->setTimeToSend($tw_subscription_mailing->getTimeToSend());
 			
 			$queue->setTrySent(0);

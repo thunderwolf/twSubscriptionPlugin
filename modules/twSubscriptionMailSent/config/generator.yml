@@ -15,12 +15,12 @@ generator:
       fields:
         id: { label: ID }
         sender: { label: Email from }
-        remail: { label: Recipient email }
+        r_email: { label: Recipient email }
         time_to_send: { label: Time to send }
       
       list:
         title: Sent Emails
-        display: [sender, remail, time_to_send, created_at]
+        display: [sender, r_email, time_to_send, created_at]
         max_per_page: 10
         object_actions:
           _delete: ~

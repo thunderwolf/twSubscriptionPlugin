@@ -14,22 +14,24 @@ generator:
       actions: ~
       fields:
         id: { label: ID }
-        listname: { label: List name }
+        list_name: { label: List name }
         type_id: { label: List type }
         list_type: { label: List type }
-        listdesc: { label: List description }
-        mailfrom: { label: Email from }
-        smtphost: { label: SMTP Host }
-        smtpuser: { label: SMTP Username }
-        smtppass: { label: SMTP Password }
-        website_base_url: { label: Website base URL }
+        list_desc: { label: List description }
+        from_address: { label: Email from }
+        smtp_host: { label: SMTP Host }
+        smtp_port: { label: SMTP Port }
+        smtp_encr: { label: SMTP Encryption }
+        smtp_user: { label: SMTP Username }
+        smtp_pass: { label: SMTP Password }
+        web_base_url: { label: Website base URL }
         sentmail: { help: From this email - emails will be sent }
         template_id: { params: include_custom=-- choose template to connect with list --, help: You can select template to spedup mailing creation }
 
       list:
         title: Your Lists
         query_methods: [withI18n]
-        display: [listname, list_type, emails, create_mailing]
+        display: [list_name, list_type, emails, create_mailing]
         max_per_page: 10
         object_actions:
           _code: { label: Code, action: code, params: { class: 'btn btn-small' } }
@@ -41,11 +43,11 @@ generator:
           _delete: ~
 
       filter:
-        display: [listname, type_id, template_id]
+        display: [list_name, type_id, template_id]
         
       form:    ~
       edit:
         title: > 
-          Your List: %%listname%%
+          Your List: %%list_name%%
 
       new:     ~

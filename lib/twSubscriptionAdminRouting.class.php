@@ -17,9 +17,6 @@ class twSubscriptionAdminRouting
 		$event->getSubject()->prependRoute('tw_subscription_faq', new sfRoute(
 				'/tw_subscription_faq', array('module' => 'twSubscriptionInfo', 'action' => 'pytania'), array(), array())
 		);
-		$event->getSubject()->prependRoute('tw_subscription_import', new sfRoute(
-				'/tw_subscription_import', array('module' => 'twSubscriptionInfo', 'action' => 'import'), array(), array())
-		);
 	}
 
 	static public function addRouteForAdminSubscriptionList(sfEvent $event)

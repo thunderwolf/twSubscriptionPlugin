@@ -43,10 +43,6 @@ all:
             label: Questions
             url:   '@tw_subscription_faq'
             credentials: [subscription]
-          tw_subscription_import:
-            label: Import
-            url:   '@tw_subscription_import'
-            credentials: [subscription]
           tw_subscription_template:
             label: Templates
             url:   '@tw_subscription_template'

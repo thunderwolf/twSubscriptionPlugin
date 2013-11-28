@@ -9,7 +9,7 @@ $form->getWidgetSchema()->setLabels(array(
 	<?php echo $form['list_js']->renderLabel() ?>
 	<div class="controls">
 		<?php echo $form['list_js']->render(array('class' => 'input-xxlarge')) ?>
-		<span class="help-block"><?php echo __('This code you add to your website in plase where you like to show subscription form', null, 'messages') ?></spam>
+		<span class="help-block"><?php echo __('This code you add to your website in plase where you like to show subscription form', null, 'messages') ?></span>
 	</div>
 </div>
 

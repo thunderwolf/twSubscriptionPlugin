@@ -61,5 +61,3 @@ if (isset($json['redir']) && $json['redir_auth'] == sha1($json['redir'] . 0xDEAD
 
 // Return the response
 echo $result;
-
-?>
