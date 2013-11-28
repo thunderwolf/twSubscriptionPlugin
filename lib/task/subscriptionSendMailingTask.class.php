@@ -1,8 +1,6 @@
 <?php
 
-// TODO: maile powinny być prekompilowane by 1000 razy nie przygotowywać np embedowania identycznie wyglądającej wiadomości . Może w memecache ? i klonować ?
-
-class subscriptionSendmailingTask extends sfBaseTaskLoggerTask {
+class subscriptionSendMailingTask extends sfBaseTaskLoggerTask {
 	
 	const ERROR_CODE_FAILURE = -1;
 	const ERROR_CODE_SUCCESS = 1;
@@ -44,10 +42,10 @@ EOF;
 		$connection = $databaseManager->getDatabase('propel')->getConnection();
 		
 		try {
-			$processed = $notprocessed = 0;
-			twSubscriptionMailingLib::sendMailing($connection, $processed, $notprocessed, $this);
+			$processed = $not_processed = 0;
+			twSubscriptionMailingLib::sendMailing($connection, $processed, $not_processed, $this);
 			$this->task->setCountProcessed($processed);
-			$this->task->setCountNotProcessed($notprocessed);
+			$this->task->setCountNotProcessed($not_processed);
 			$this->task->setErrorCode(self::ERROR_CODE_SUCCESS);
 			$this->setOk();
 		} catch (Exception $e) {

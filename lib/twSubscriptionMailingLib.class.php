@@ -39,6 +39,7 @@ class twSubscriptionMailingLib
 		$result = twSubscriptionMailQueueQuery::getMailingQueue($connection);
 		foreach ($result as $row) {
 			try {
+				// TODO: messages should be pre-compiled once for each message_id then only `standardReplace` for each record
 				$ret = self::sendMailingMessage($row, $task);
 				if ($ret) {
 					self::delFromQueue($row, $connection, $processed, $task);
