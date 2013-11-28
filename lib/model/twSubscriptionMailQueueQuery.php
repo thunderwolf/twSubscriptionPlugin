@@ -18,10 +18,28 @@
  * @package    propel.generator.plugins.twSubscriptionPlugin.lib.model
  */
 class twSubscriptionMailQueueQuery extends BasetwSubscriptionMailQueueQuery {
-	static public function getMailingData(PropelPDO $connection)
+	static public function getMailingQueue(PropelPDO $connection)
 	{
 		$sth = $connection->prepare('
-			SELECT smtphost, smtpuser, smtppass, mailfrom, remail, subject, message, id, mailing_id, time_to_send, type_id, rname, unsubscribe, website_base_url, subscription_base_url, fromname, list_id
+			SELECT id,
+				mailing_id,
+				message_type,
+				subject,
+				message
+				from_address,
+				from_name,
+				smtp_host,
+				smtp_port,
+				smtp_encr,
+				smtp_user,
+				smtp_pass,
+				r_email,
+				r_name,
+				un_sub_code,
+				un_sub_link,
+				sub_base_url,
+				web_base_url,
+				time_to_send
 			FROM tw_subscription_mail_queue
 			WHERE time_to_send < NOW()
 		');
@@ -34,15 +52,15 @@ class twSubscriptionMailQueueQuery extends BasetwSubscriptionMailQueueQuery {
 	{
 		$stmt = $connection->prepare('
 					INSERT INTO tw_subscription_mail_sent
-						(mailing_id, time_to_send, sender, remail, body, created_at)
+						(mailing_id, time_to_send, sender, r_email, body, created_at)
 					VALUES
-						(:mailing_id, :time_to_send, :sender, :remail, :body, NOW())
+						(:mailing_id, :time_to_send, :sender, :r_email, :body, NOW())
 					');
 
 		$stmt->bindParam(':mailing_id', $row['mailing_id']);
 		$stmt->bindParam(':time_to_send', $row['time_to_send']);
-		$stmt->bindParam(':sender', $row['mailfrom']);
-		$stmt->bindParam(':remail', $row['remail']);
+		$stmt->bindParam(':sender', $row['from_address']);
+		$stmt->bindParam(':r_email', $row['r_email']);
 		$stmt->bindParam(':body', $row['message']);
 		$stmt->execute();
 
