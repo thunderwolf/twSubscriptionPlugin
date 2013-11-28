@@ -38,8 +38,8 @@
 		<foreign-key foreignTable="tw_subscription_message_type" onDelete="cascade">
 			<reference local="type_id" foreign="id"/>
 		</foreign-key>
-		<column name="tname" type="VARCHAR" size="50" required="true"/>
-		<column name="tdata" type="LONGVARCHAR" required="true"/>
+		<column name="t_name" type="VARCHAR" size="50" required="true"/>
+		<column name="t_data" type="LONGVARCHAR" required="true"/>
 	</table>
 
 	<table name="tw_subscription_list" phpName="twSubscriptionList" idMethod="native">
@@ -52,18 +52,18 @@
 		<foreign-key foreignTable="tw_subscription_template" onDelete="setnull">
 			<reference local="template_id" foreign="id"/>
 		</foreign-key>
-		<column name="listname" type="VARCHAR" size="250" required="true"/>
-		<column name="listdesc" type="LONGVARCHAR"/>
-		<column name="fromname" type="VARCHAR" size="250"/>
-		<column name="mailfrom" type="VARCHAR" size="250" required="true"/>
-		<column name="smtphost" type="VARCHAR" size="150"/>
-		<column name="smtpport" type="integer"/>
-		<column name="smtpencr" type="integer"/>
-		<column name="smtpuser" type="VARCHAR" size="50"/>
-		<column name="smtppass" type="VARCHAR" size="50"/>
-		<column name="website_base_url" type="VARCHAR" size="250" required="false"/>
-		<column name="website_shared_key" type="VARCHAR" size="40" required="false"/>
-		<column name="lastsync_at" type="TIMESTAMP"/>
+		<column name="list_name" type="VARCHAR" size="250" required="true"/>
+		<column name="list_desc" type="LONGVARCHAR"/>
+		<column name="from_address" type="VARCHAR" size="250" required="true"/>
+		<column name="from_name" type="VARCHAR" size="250"/>
+		<column name="smtp_host" type="VARCHAR" size="150"/>
+		<column name="smtp_port" type="integer"/>
+		<column name="smtp_encr" type="integer"/>
+		<column name="smtp_user" type="VARCHAR" size="50"/>
+		<column name="smtp_pass" type="VARCHAR" size="50"/>
+		<column name="web_base_url" type="VARCHAR" size="250"/>
+		<column name="web_shared_key" type="VARCHAR" size="40"/>
+		<column name="last_sync_at" type="TIMESTAMP"/>
 	</table>
 
 	<table name="tw_subscription_status" phpName="twSubscriptionStatus" isI18N="true"
@@ -91,23 +91,23 @@
 		<foreign-key foreignTable="tw_subscription_status" onDelete="cascade">
 			<reference local="status_id" foreign="id"/>
 		</foreign-key>
-		<column name="remail" type="VARCHAR" size="250" required="true"/>
-		<column name="rname" type="VARCHAR" size="250"/>
+		<column name="r_email" type="VARCHAR" size="250" required="true"/>
+		<column name="r_name" type="VARCHAR" size="250"/>
 		<column name="expires" type="TIMESTAMP"/>
 		<column name="auth_key" type="VARCHAR" size="40" required="true"/>
 		<column name="created_at" type="TIMESTAMP" required="false"/>
 		<index name="list_id">
 			<index-column name="list_id"/>
 		</index>
-		<index name="inputtime">
+		<index name="input_time">
 			<index-column name="created_at"/>
 		</index>
 		<unique name="auth_key">
 			<unique-column name="auth_key"/>
 		</unique>
-		<unique name="listemail">
+		<unique name="list_email">
 			<unique-column name="list_id"/>
-			<unique-column name="remail"/>
+			<unique-column name="r_email"/>
 		</unique>
 	</table>
 
@@ -180,19 +180,19 @@
 			<reference local="list_id" foreign="id"/>
 		</foreign-key>
 		<column name="list_type" type="varchar" size="20"/>
-		<column name="fromname" type="VARCHAR" size="250"/>
-		<column name="mailfrom" type="VARCHAR" size="250" required="true"/>
-		<column name="smtphost" type="VARCHAR" size="150"/>
-		<column name="smtpport" type="integer"/>
-		<column name="smtpencr" type="integer"/>
-		<column name="smtpuser" type="VARCHAR" size="50"/>
-		<column name="smtppass" type="VARCHAR" size="50"/>
-		<column name="subscription_base_url" type="VARCHAR" size="250"/>
-		<column name="website_base_url" type="VARCHAR" size="250"/>
-		<column name="remail" type="VARCHAR" size="250" required="true"/>
-		<column name="rname" type="VARCHAR" size="250"/>
-		<column name="unsubscribe" type="VARCHAR" size="40" required="true"/>
-		<column name="unsublink" type="VARCHAR" size="250"/>
+		<column name="from_address" type="VARCHAR" size="250" required="true"/>
+		<column name="from_name" type="VARCHAR" size="250"/>
+		<column name="smtp_host" type="VARCHAR" size="150"/>
+		<column name="smtp_port" type="integer"/>
+		<column name="smtp_encr" type="integer"/>
+		<column name="smtp_user" type="VARCHAR" size="50"/>
+		<column name="smtp_pass" type="VARCHAR" size="50"/>
+		<column name="r_email" type="VARCHAR" size="250" required="true"/>
+		<column name="r_name" type="VARCHAR" size="250"/>
+		<column name="un_sub_code" type="VARCHAR" size="40" required="true"/>
+		<column name="un_sub_link" type="VARCHAR" size="250"/>
+		<column name="sub_base_url" type="VARCHAR" size="250"/>
+		<column name="web_base_url" type="VARCHAR" size="250"/>
 		<column name="time_to_send" type="TIMESTAMP" required="true"/>
 		<column name="try_sent" type="TINYINT" required="true" default="0"/>
 		<column name="created_at" type="TIMESTAMP" required="false"/>
@@ -212,7 +212,7 @@
 		</foreign-key>
 		<column name="time_to_send" type="TIMESTAMP" required="true"/>
 		<column name="sender" type="VARCHAR" size="50" required="true" default=" "/>
-		<column name="remail" type="VARCHAR" size="50" required="true" default=" "/>
+		<column name="r_email" type="VARCHAR" size="50" required="true" default=" "/>
 		<column name="body" type="clob" required="true"/>
 		<column name="created_at" type="TIMESTAMP" required="false"/>
 		<index name="mailing_id_idx">
