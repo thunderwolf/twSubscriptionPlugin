@@ -91,7 +91,8 @@ class twSubscriptionMailingActions extends autoTwSubscriptionMailingActions {
 			}
 		}
 		$list_type = twSubscriptionListTypeQuery::create()->findPk($tw_subscription_list->getTypeId());
-		
+
+		$un_subscribe_folder = sfConfig::get('app_tw_subscription_unsubscribe_prefix', 'unsubscribe');
 		foreach ($emails as $row) {
 			$queue = new twSubscriptionMailQueue();
 			
@@ -122,11 +123,7 @@ class twSubscriptionMailingActions extends autoTwSubscriptionMailingActions {
 
 			$queue->setUnSubCode($row->getAuthKey());
 			$queue->setUnSubLink(
-				$this->generateUrl(
-					'subscription_unsubscribe',
-					array('id' => $tw_subscription_list->getId(), 'auth_key' => $row->getAuthKey()),
-					true
-				)
+				$web_base_url . $un_subscribe_folder . '/' . $tw_subscription_list->getId() . '/' . $row->getAuthKey()
 			);
 
 			$queue->setSubBaseUrl('http://' . $_SERVER['SERVER_NAME'] . '/');
