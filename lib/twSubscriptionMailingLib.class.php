@@ -2,6 +2,50 @@
 
 class twSubscriptionMailingLib
 {
+	/**
+	 * Sending invitation email
+	 *
+	 * @param twSubscriptionList $list
+	 * @param twSubscriptionListInvitation $list_inv
+	 * @param $m_type
+	 * @param $recipient_email
+	 * @param null $recipient_name
+	 * @return int
+	 */
+	static public function sendInvitationEmail(
+		twSubscriptionList $list, twSubscriptionListInvitation $list_inv, $m_type, $recipient_email, $recipient_name = null
+	)
+	{
+		$params = array(
+			'email' => $recipient_email,
+			'fullname' => $recipient_name,
+			'unsubscribe' => null,
+			'sub_base_url' => 'http://' . $_SERVER['SERVER_NAME'] . '/',
+			'web_base_url' => $list->getWebBaseUrl()
+		);
+		$transport = self::getTransport(
+			$list->getSmtpHost(),
+			$list->getSmtpUser(),
+			$list->getSmtpPass(),
+			$list->getSmtpPort(),
+			$list->getSmtpEncr()
+		);
+		$base_message_obj = self::getBaseMessageObject(
+			$list_inv->getSubject(),
+			$list->getFromAddress(),
+			$recipient_email,
+			$list->getFromName(),
+			$recipient_name
+		);
+		$message_obj = self::getMessageObject(
+			$m_type,
+			$list_inv->getMessage(),
+			$base_message_obj,
+			$params,
+			null
+		);
+		return self::sendPreparedMessage($message_obj, $transport, null);
+	}
 
 	/**
 	 * Create mailing
