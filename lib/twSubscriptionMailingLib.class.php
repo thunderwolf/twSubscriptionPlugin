@@ -8,18 +8,25 @@ class twSubscriptionMailingLib
 	 * @param twSubscriptionList $list
 	 * @param twSubscriptionListInvitation $list_inv
 	 * @param $m_type
+	 * @param $sub_link
 	 * @param $recipient_email
 	 * @param null $recipient_name
 	 * @return int
 	 */
 	static public function sendInvitationEmail(
-		twSubscriptionList $list, twSubscriptionListInvitation $list_inv, $m_type, $recipient_email, $recipient_name = null
+		twSubscriptionList $list,
+		twSubscriptionListInvitation $list_inv,
+		$m_type,
+		$sub_link,
+		$recipient_email,
+		$recipient_name = null
 	)
 	{
 		$params = array(
 			'email' => $recipient_email,
 			'fullname' => $recipient_name,
-			'unsubscribe' => null,
+			'listname' => $list->getListName(),
+			'subscribe' => $sub_link,
 			'sub_base_url' => 'http://' . $_SERVER['SERVER_NAME'] . '/',
 			'web_base_url' => $list->getWebBaseUrl()
 		);

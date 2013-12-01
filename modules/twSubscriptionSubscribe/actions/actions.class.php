@@ -27,12 +27,13 @@ class twSubscriptionSubscribeActions extends sfActions
 
 		$this->form->setValidators(array(
 			'r_email' => new sfValidatorAnd(array(
-					new sfValidatorString(array('max_length' => 250)), new sfValidator_email()
+					new sfValidatorString(array('max_length' => 250)), new sfValidatorEmail()
 				)),
 			'r_name' => new sfValidatorString(array('max_length' => 250, 'required' => false))
 		));
 		$this->form->getWidgetSchema()->setNameFormat('subscribe[%s]');
 
+		$this->m_sent = 0;
 		if ($request->isMethod('post')) {
 			$this->form->bind($request->getParameter('subscribe'));
 			if ($request->isMethod('post')) {
@@ -45,6 +46,9 @@ class twSubscriptionSubscribeActions extends sfActions
 
 				if (!$email_list) {
 					$this->savePendingEmail($list, $status, $list_inv, $message_type_obj, $values);
+					$this->m_sent = 1; // Invitation sent
+				} else {
+					$this->m_sent = 2; // Invitation already sent
 				}
 			}
 		}
@@ -58,8 +62,7 @@ class twSubscriptionSubscribeActions extends sfActions
 		$values
 	)
 	{
-		$mtype = $message_type_obj->getCode();
-		twSubscriptionMailingLib::sendInvitationEmail($list, $list_inv, $mtype, $values['r_email'], $values['r_name']);
+		$auth_key = microtime(true);
 
 		$email_list = new twSubscriptionEmail();
 		$email_list->settwSubscriptionList($list);
@@ -67,8 +70,13 @@ class twSubscriptionSubscribeActions extends sfActions
 		$email_list->setREmail($values['r_email']);
 		$email_list->setRName($values['r_name']);
 		$email_list->setExpires(strtotime("+1 day"));
-		$email_list->setAuthKey(microtime(true));
+		$email_list->setAuthKey($auth_key);
 		$email_list->save();
-		return $email_list;
+
+		$m_type = $message_type_obj->getCode();
+		$sub_link = $this->generateUrl('subscription_subscribe_activate', array('id' => $list->getId(), 'auth_key' => $auth_key));
+		twSubscriptionMailingLib::sendInvitationEmail($list, $list_inv, $m_type, $sub_link, $values['r_email'], $values['r_name']);
+
+		return true;
 	}
 }
