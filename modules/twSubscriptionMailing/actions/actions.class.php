@@ -121,7 +121,13 @@ class twSubscriptionMailingActions extends autoTwSubscriptionMailingActions {
 			$queue->setRName($row->getRName());
 
 			$queue->setUnSubCode($row->getAuthKey());
-			$queue->setUnSubLink($this->generateUrl('subscription_unsubscribe', array('id' => $tw_subscription_list->getId(), 'auth_key' => $row->getAuthKey())));
+			$queue->setUnSubLink(
+				$this->generateUrl(
+					'subscription_unsubscribe',
+					array('id' => $tw_subscription_list->getId(), 'auth_key' => $row->getAuthKey()),
+					true
+				)
+			);
 
 			$queue->setSubBaseUrl('http://' . $_SERVER['SERVER_NAME'] . '/');
 			$queue->setWebBaseUrl($web_base_url);

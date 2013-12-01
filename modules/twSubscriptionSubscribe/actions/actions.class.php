@@ -12,6 +12,30 @@ class twSubscriptionSubscribeActions extends sfActions
 	public function executeIndex(sfWebRequest $request) {
 		$list = twSubscriptionListQuery::create()->findPk(sfConfig::get('app_tw_subscription_subscribe_list', 1));
 		$this->forward404Unless($list);
+		$this->subscribeForm($request, $list);
+	}
+
+	public function executeActivate(sfWebRequest $request)
+	{
+		$list = twSubscriptionListQuery::create()->findPk($request->getParameter('id'));
+		$this->forward404Unless($list);
+		$to_act = twSubscriptionEmailQuery::create()
+			->filterBytwSubscriptionList($list)
+			->filterByAuthKey($request->getParameter('auth_key'))
+			->findOne()
+		;
+		if ($to_act instanceof twSubscriptionEmail) {
+			$status = twSubscriptionStatusQuery::create()->findOneByCode('active');
+			$to_act->settwSubscriptionStatus($status);
+			$to_act->save();
+			$this->a_info = 1; // Success
+		} else {
+			$this->a_info = 0; // Failed
+		}
+	}
+
+	protected function subscribeForm(sfWebRequest $request, twSubscriptionList $list)
+	{
 		$list_inv = twSubscriptionListInvitationQuery::create()->findOneByListId($list->getId());
 		if (!($list_inv instanceof twSubscriptionListInvitation)) {
 			$this->forward404();
@@ -62,7 +86,7 @@ class twSubscriptionSubscribeActions extends sfActions
 		$values
 	)
 	{
-		$auth_key = microtime(true);
+		$auth_key = sha1(microtime(true));
 
 		$email_list = new twSubscriptionEmail();
 		$email_list->settwSubscriptionList($list);
@@ -74,7 +98,11 @@ class twSubscriptionSubscribeActions extends sfActions
 		$email_list->save();
 
 		$m_type = $message_type_obj->getCode();
-		$sub_link = $this->generateUrl('subscription_subscribe_activate', array('id' => $list->getId(), 'auth_key' => $auth_key));
+		$sub_link = $this->generateUrl(
+			'subscription_subscribe_activate',
+			array('id' => $list->getId(), 'auth_key' => $auth_key),
+			true
+		);
 		twSubscriptionMailingLib::sendInvitationEmail($list, $list_inv, $m_type, $sub_link, $values['r_email'], $values['r_name']);
 
 		return true;
