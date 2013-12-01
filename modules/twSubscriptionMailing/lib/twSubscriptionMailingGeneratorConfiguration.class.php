@@ -3,7 +3,7 @@
 /**
  * twSubscriptionMailing module configuration.
  *
- * @package    pzmtravel
+ * @package    subscription
  * @subpackage twSubscriptionMailing
  * @author     Your name here
  */

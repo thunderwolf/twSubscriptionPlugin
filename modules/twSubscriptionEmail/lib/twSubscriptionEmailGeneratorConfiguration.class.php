@@ -3,7 +3,7 @@
 /**
  * twSubscriptionEmail module configuration.
  *
- * @package    pzmtravel
+ * @package    subscription
  * @subpackage twSubscriptionEmail
  * @author     Your name here
  * @version    SVN: $Id: twSubscriptionEmailGeneratorConfiguration.class.php 504 2011-03-16 23:26:14Z ldath $

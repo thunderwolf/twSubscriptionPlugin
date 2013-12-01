@@ -6,7 +6,7 @@ require_once dirname(__FILE__) . '/../lib/twSubscriptionMailQueueGeneratorHelper
 /**
  * twSubscriptionMailQueue actions.
  *
- * @package    pzmtravel
+ * @package    subscription
  * @subpackage twSubscriptionMailQueue
  * @author     Your name here
  */

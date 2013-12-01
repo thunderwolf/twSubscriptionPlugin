@@ -28,7 +28,7 @@ generator:
           _delete: ~
       
       filter:
-        display: [ remail ]
+        display: [ r_email ]
         
       form:    ~
       edit:    ~

@@ -6,7 +6,7 @@ require_once dirname(__FILE__) . '/../lib/twSubscriptionListInvitationGeneratorH
 /**
  * twSubscriptionListInvitation actions.
  *
- * @package    pzmtravel
+ * @package    subscription
  * @subpackage twSubscriptionListInvitation
  * @author     Your name here
  */

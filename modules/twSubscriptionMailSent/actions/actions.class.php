@@ -6,7 +6,7 @@ require_once dirname(__FILE__) . '/../lib/twSubscriptionMailSentGeneratorHelper.
 /**
  * twSubscriptionMailSent actions.
  *
- * @package    pzmtravel
+ * @package    subscription
  * @subpackage twSubscriptionMailSent
  * @author     Your name here
  */
