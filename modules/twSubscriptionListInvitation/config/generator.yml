@@ -13,7 +13,9 @@ generator:
     config:
       actions: ~
       fields:  ~
-      list:    ~
+      list:
+        title: List Invitation
+        display: [list, type, subject]
       filter:  ~
       form:    ~
       edit:    ~

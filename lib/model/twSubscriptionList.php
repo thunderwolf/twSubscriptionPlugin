@@ -19,14 +19,7 @@ class twSubscriptionList extends BasetwSubscriptionList
 
 	public function getListType()
 	{
-		$c = new Criteria();
-		$c->add(twSubscriptionListTypePeer::ID, $this->getTypeId());
-		$type = twSubscriptionListTypePeer::doSelectWithI18n($c);
-		if (!empty($type[0])) {
-			return $type[0]->getName();
-		} else {
-			return null;
-		}
+		return $this->gettwSubscriptionListType();
 	}
 
 	public function getMessageTypeId()

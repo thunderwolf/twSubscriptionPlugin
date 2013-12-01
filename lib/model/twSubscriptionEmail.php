@@ -16,6 +16,6 @@ class twSubscriptionEmail extends BasetwSubscriptionEmail
 
 	public function getStatus()
 	{
-		return $this->gettwSubscriptionStatus()->getName();
+		return $this->gettwSubscriptionStatus();
 	}
 }

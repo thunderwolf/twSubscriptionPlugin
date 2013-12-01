@@ -16,13 +16,6 @@ class twSubscriptionTemplate extends BasetwSubscriptionTemplate
 
 	public function getType()
 	{
-		$c = new Criteria();
-		$c->add(twSubscriptionMessageTypePeer::ID, $this->getTypeId());
-		$type = twSubscriptionMessageTypePeer::doSelectWithI18n($c);
-		if (!empty($type[0])) {
-			return $type[0]->getName();
-		} else {
-			return null;
-		}
+		return $this->gettwSubscriptionMessageType();
 	}
 }

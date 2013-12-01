@@ -11,6 +11,10 @@ class twSubscriptionListType extends BasetwSubscriptionListType
 {
 	public function __toString()
 	{
-		return $this->getName();
+		$i18n = $this->gettwSubscriptionListTypeI18ns();
+		if (isset($i18n[0])) {
+			return $i18n[0]->getName();
+		}
+		return $this->getCode();
 	}
 }

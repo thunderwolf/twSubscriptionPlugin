@@ -10,11 +10,13 @@ class twSubscriptionTemplateForm extends BasetwSubscriptionTemplateForm
 {
 	public function configure()
 	{
-		$type_id = 1;
+		$type = 'text';
 		if (!$this->isNew()) {
 			$type_id = $this->getObject()->getTypeId();
+			$type_obj = twSubscriptionMessageTypeQuery::create()->findPk($type_id);
+			$type = $type_obj->getCode();
 		}
-		if ($type_id != 1) {
+		if ($type != 'text') {
 			sfContext::getInstance()->getConfiguration()->loadHelpers(array(
 				'Helper', 'Tag', 'Url'
 			));
@@ -26,7 +28,7 @@ class twSubscriptionTemplateForm extends BasetwSubscriptionTemplateForm
 				'customConfig' => '/twAdminPlugin/js/ck_content.js',
 			);
 
-			$this->widgetSchema['tdata'] = new sfWidgetFormCKEditor(array(
+			$this->widgetSchema['t_data'] = new sfWidgetFormCKEditor(array(
 				'jsoptions' => $config
 			));
 		}
