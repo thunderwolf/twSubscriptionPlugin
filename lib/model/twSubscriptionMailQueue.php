@@ -11,13 +11,6 @@ class twSubscriptionMailQueue extends BasetwSubscriptionMailQueue
 {
 	public function getMessageType()
 	{
-		$c = new Criteria();
-		$c->add(twSubscriptionMessageTypePeer::ID, $this->getTypeId());
-		$type = twSubscriptionMessageTypePeer::doSelectWithI18n($c);
-		if (!empty($type[0])) {
-			return $type[0]->getName();
-		} else {
-			return null;
-		}
+		return $this->gettwSubscriptionMessageType();
 	}
 }

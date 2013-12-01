@@ -26,7 +26,7 @@ class twSubscriptionMailQueueQuery extends BasetwSubscriptionMailQueueQuery
 				mailing_id,
 				message_type,
 				subject,
-				message
+				message,
 				from_address,
 				from_name,
 				smtp_host,
@@ -46,7 +46,7 @@ class twSubscriptionMailQueueQuery extends BasetwSubscriptionMailQueueQuery
 		');
 		$sth->execute();
 
-		return $sth->fetchAll();
+		return $sth->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	static public function delFromQueue(PropelPDO $connection, $row)

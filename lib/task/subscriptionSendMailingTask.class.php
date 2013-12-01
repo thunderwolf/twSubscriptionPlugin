@@ -11,9 +11,6 @@ class subscriptionSendMailingTask extends sfBaseTaskLoggerTask {
 	
 	protected function configure() {
 		parent::configure();
-		
-		// Zawsze musimy sprawdzić czy
-		
 		$this->namespace = 'subscription';
 		$this->name = 'send-mailing';
 		$this->briefDescription = 'Will send mailing';
