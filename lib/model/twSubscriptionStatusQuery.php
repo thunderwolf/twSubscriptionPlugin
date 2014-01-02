@@ -1,7 +1,6 @@
 <?php
 
 
-
 /**
  * Skeleton subclass for performing query and update operations on the 'tw_subscription_status' table.
  *

@@ -8,7 +8,7 @@
  */
 class twSubscriptionMailQueueForm extends BasetwSubscriptionMailQueueForm
 {
-	public function configure()
-	{
-	}
+    public function configure()
+    {
+    }
 }

@@ -9,13 +9,13 @@
  */
 class twSubscriptionListInvitation extends BasetwSubscriptionListInvitation
 {
-	public function getList()
-	{
-		return $this->gettwSubscriptionList();
-	}
+    public function getList()
+    {
+        return $this->gettwSubscriptionList();
+    }
 
-	public function getType()
-	{
-		return $this->gettwSubscriptionMessageType();
-	}
+    public function getType()
+    {
+        return $this->gettwSubscriptionMessageType();
+    }
 }

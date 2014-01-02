@@ -9,8 +9,8 @@
  */
 class twSubscriptionMailQueue extends BasetwSubscriptionMailQueue
 {
-	public function getMessageType()
-	{
-		return $this->gettwSubscriptionMessageType();
-	}
+    public function getMessageType()
+    {
+        return $this->gettwSubscriptionMessageType();
+    }
 }

@@ -1,235 +1,256 @@
 <?xml version="1.0" ?>
 <xliff version="1.0">
-  <file orginal="global" source-language="en" datatype="plaintext">
-    <body>
-      <trans-unit id="1">
-        <source>List name</source>
-        <target>Nazwa listy</target>
-      </trans-unit>
-      <trans-unit id="2">
-        <source>List type</source>
-        <target>Typ listy</target>
-      </trans-unit>
-      <trans-unit id="3">
-        <source>List description</source>
-        <target>Opis listy</target>
-      </trans-unit>
-      <trans-unit id="4">
-        <source>Email from</source>
-        <target>Adres Zwrotny</target>
-      </trans-unit>
-      <trans-unit id="5">
-        <source>SMTP Host</source>
-        <target>SMTP Host</target>
-      </trans-unit>
-      <trans-unit id="6">
-        <source>SMTP Username</source>
-        <target>SMTP Username</target>
-      </trans-unit>
-      <trans-unit id="7">
-        <source>SMTP Password</source>
-        <target>SMTP Password</target>
-      </trans-unit>
-      <trans-unit id="10">
-        <source>From this email - emails will be sent</source>
-        <target>Listy będą podpisane jako wysłane z tego maila</target>
-      </trans-unit>
-      <trans-unit id="12">
-        <source>Emails</source>
-        <target>Emaile</target>
-      </trans-unit>
-      <trans-unit id="13">
-        <source>Create mailing</source>
-        <target>Stwórz pocztę</target>
-      </trans-unit>
-      <trans-unit id="14">
-        <source>-- choose template to connect with list --</source>
-        <target>-- wybierz szablon do połączenia z listą --</target>
-      </trans-unit>
-      <trans-unit id="15">
-        <source>You can select template to spedup mailing creation</source>
-        <target>Możesz wybrać szablon w celu przyspieszenia tworzenia mailingów</target>
-      </trans-unit>
-      <trans-unit id="16">
-        <source>Add a email</source>
-        <target>Dodaj adres email</target>
-      </trans-unit>
-      <trans-unit id="17">
-        <source>Create Template mailing</source>
-        <target>Stwórz mailing oparty o szablon</target>
-      </trans-unit>
-      <trans-unit id="18">
-        <source>Create TEXT mailing</source>
-        <target>Stwórz mailing w formie tekstu</target>
-      </trans-unit>
-      <trans-unit id="19">
-        <source>Create HTML mailing</source>
-        <target>Stwórz mailing w formie HTML</target>
-      </trans-unit>
-      <trans-unit id="20">
-        <source>Show emails</source>
-        <target>Pokaż emaile</target>
-      </trans-unit>
-      <trans-unit id="21">
-        <source>JavaScript code</source>
-        <target>Kod JavaScript</target>
-      </trans-unit>
-      <trans-unit id="22">
-        <source>This code you add to your website in plase where you like to show subscription form</source>
-        <target>Powyższy kod dodajemy na stronie w miejscu w którym chcemy pokazać formularz subskrypcji</target>
-      </trans-unit>
-      <trans-unit id="23">
-        <source>PHP code</source>
-        <target>Kod PHP</target>
-      </trans-unit>
-      <trans-unit id="24">
-        <source>Save PHP code</source>
-        <target>Zapisz kod PHP</target>
-      </trans-unit>
-      <trans-unit id="25">
-        <source>When you save this PHP script, please put it to main webroot folder. It need to be visable as `http://yourpage.com/subskrypcja.php`. This file create PROXY connection betwean your website and subscription program.</source>
-        <target>Gdy zapiszesz ten skrypt PHP, proszę wprowadź go do głównego katalogu www. Musi być widoczny jako `http://twojastrona.pl/subskrypcja.php`. Ten plik tworzy połączenie PROXY pomiędzy twoim serwisem www a aplikacją subskrypcja.</target>
-      </trans-unit>
-      <trans-unit id="28">
-        <source>Recipient email</source>
-        <target>Email odbiorcy</target>
-      </trans-unit>
-      <trans-unit id="30">
-        <source>Recipient name</source>
-        <target>Nazwa odbiorcy</target>
-      </trans-unit>
-      <trans-unit id="32">
-        <source>To this email - emails will be sent</source>
-        <target>Na ten adres - wiadomości będą wysyłane</target>
-      </trans-unit>
-      <trans-unit id="33">
-        <source>Unsubscribe code</source>
-        <target>Kod do kasacji subskrypcji</target>
-      </trans-unit>
-      <trans-unit id="35">
-        <source>This record will be automaticly set and must be unique</source>
-        <target>Te pole zostanie automatycznie wypełnione i musi być unikalne</target>
-      </trans-unit>
-      <trans-unit id="37">
-        <source>Email status</source>
-        <target>Status emaila</target>
-      </trans-unit>
-      <trans-unit id="38">
-        <source>Message type</source>
-        <target>Typ wiadomości</target>
-      </trans-unit>
-      <trans-unit id="39">
-        <source>Message subject</source>
-        <target>Temat wiadomości</target>
-      </trans-unit>
-      <trans-unit id="40">
-        <source>Message subject:</source>
-        <target>Temat wiadomości:</target>
-      </trans-unit>
-      <trans-unit id="41">
-        <source>Message body</source>
-        <target>Treść wiadomości</target>
-      </trans-unit>
-      <trans-unit id="43">
-        <source>Message: %%subject%%</source>
-        <target>Wiadomość: %%subject%%</target>
-      </trans-unit>
-      <trans-unit id="44">
-        <source>Text emails can have only text inside.</source>
-        <target>Wiadomości tekstowe mogą zawierać tylko tekst.</target>
-      </trans-unit>
-      <trans-unit id="45">
-        <source>Please put here your message data. To have personalized information you can use special tags like {email} or {fullname} which are ne change to email adres and Fullname of user who will gain this message. To add special link to unsubscribe from this list please use tag {unsubscribe}.</source>
-        <target>Podaj treść wiadomości. Aby wykorzystać personalizację możesz użyć znaczników {email} lub {fullname} które wstawią w wiadomosci odpowiedznio adres email i nazwe (imię i nazwisko) odbiorcy wiadomości. Aby dodać link pozwalający na usunięcie się z listy subskrypcyjnej użyj znacznika {unsubscribe}.</target>
-      </trans-unit>
-      <trans-unit id="46">
-        <source>Time to send</source>
-        <target>Czas startu wysyłki</target>
-      </trans-unit>
-      <trans-unit id="47">
-        <source>Message subject</source>
-        <target>Temat wiadomości</target>
-      </trans-unit>
-      <trans-unit id="48">
-        <source>Time to send</source>
-        <target>Czas startu wysyłki</target>
-      </trans-unit>
-      <trans-unit id="49">
-        <source>In queue</source>
-        <target>W kolejce</target>
-      </trans-unit>
-      <trans-unit id="50">
-        <source>In sent</source>
-        <target>Wysłanych</target>
-      </trans-unit>
-      <trans-unit id="51">
-        <source>Send mailing</source>
-        <target>Roześlij pocztę</target>
-      </trans-unit>
-      <trans-unit id="52">
-        <source>Delete mailing from queue</source>
-        <target>Skasuj pocztę z kolejki</target>
-      </trans-unit>
-      <trans-unit id="52">
-        <source>Message type</source>
-        <target>Typ wiadomości</target>
-      </trans-unit>
-      <trans-unit id="53">
-        <source>Message subject</source>
-        <target>Temat wiadomości</target>
-      </trans-unit>
-      <trans-unit id="54">
-        <source>Email from:</source>
-        <target>Adres Zwrotny:</target>
-      </trans-unit>
-      <trans-unit id="55">
-        <source>Recipient email</source>
-        <target>Email odbiorcy</target>
-      </trans-unit>
-      <trans-unit id="56">
-        <source>Recipient name</source>
-        <target>Nazwa odbiorcy</target>
-      </trans-unit>
-      <trans-unit id="57">
-        <source>Time to send</source>
-        <target>Czas startu wysyłki</target>
-      </trans-unit>
-      <trans-unit id="58">
-        <source>Template type</source>
-        <target>Typ szablonu</target>
-      </trans-unit>
-      <trans-unit id="59">
-        <source>Template name</source>
-        <target>Nazwa szablonu</target>
-      </trans-unit>
-      <trans-unit id="60">
-        <source>Template body</source>
-        <target>Treść szablonu</target>
-      </trans-unit>
-      <trans-unit id="61">
-        <source>Template type:</source>
-        <target>Typ szablonu:</target>
-      </trans-unit>
-      <trans-unit id="62">
-        <source>Template name:</source>
-        <target>Nazwa szablonu:</target>
-      </trans-unit>
-      <trans-unit id="63">
-        <source>Template body:</source>
-        <target>Treść szablonu:</target>
-      </trans-unit>
-      <trans-unit id="64">
-        <source>Text emails can have only text inside.</source>
-        <target>Wiadomości tekstowe mogą zawierać tylko tekst.</target>
-      </trans-unit>
-      <trans-unit id="65">
-        <source>Please put here your template data. To have personalized information you can use special tags like {email} or {fullname} which are ne change to email adres and Fullname of user who will gain this message. To add special link to unsubscribe from this list please use tag {unsubscribe}.</source>
-        <target>Podaj treść szablonu wiadomości. Aby wykorzystać personalizację możesz użyć znaczników {email} lub {fullname} które wstawią w wiadomosci odpowiedznio adres email i nazwe (imię i nazwisko) odbiorcy wiadomości. Aby dodać link pozwalający na usunięcie się z listy subskrypcyjnej użyj znacznika {unsubscribe}.</target>
-      </trans-unit>
-      <trans-unit id="66">
-        <source>Choose name easy to connect with template.</source>
-        <target>Wybierz nazwę prostą do zapamiętania dla szablonu.</target>
-      </trans-unit>
-    </body>
-  </file>
+    <file orginal="global" source-language="en" datatype="plaintext">
+        <body>
+            <trans-unit id="1">
+                <source>List name</source>
+                <target>Nazwa listy</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>List type</source>
+                <target>Typ listy</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>List description</source>
+                <target>Opis listy</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Email from</source>
+                <target>Adres Zwrotny</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>SMTP Host</source>
+                <target>SMTP Host</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>SMTP Username</source>
+                <target>SMTP Username</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>SMTP Password</source>
+                <target>SMTP Password</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>From this email - emails will be sent</source>
+                <target>Listy będą podpisane jako wysłane z tego maila</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Emails</source>
+                <target>Emaile</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Create mailing</source>
+                <target>Stwórz pocztę</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>-- choose template to connect with list --</source>
+                <target>-- wybierz szablon do połączenia z listą --</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>You can select template to spedup mailing creation</source>
+                <target>Możesz wybrać szablon w celu przyspieszenia tworzenia mailingów</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>Add a email</source>
+                <target>Dodaj adres email</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>Create Template mailing</source>
+                <target>Stwórz mailing oparty o szablon</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>Create TEXT mailing</source>
+                <target>Stwórz mailing w formie tekstu</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>Create HTML mailing</source>
+                <target>Stwórz mailing w formie HTML</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>Show emails</source>
+                <target>Pokaż emaile</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>JavaScript code</source>
+                <target>Kod JavaScript</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>This code you add to your website in plase where you like to show subscription form</source>
+                <target>Powyższy kod dodajemy na stronie w miejscu w którym chcemy pokazać formularz subskrypcji
+                </target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>PHP code</source>
+                <target>Kod PHP</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>Save PHP code</source>
+                <target>Zapisz kod PHP</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>When you save this PHP script, please put it to main webroot folder. It need to be visable as
+                    `http://yourpage.com/subskrypcja.php`. This file create PROXY connection betwean your website and
+                    subscription program.
+                </source>
+                <target>Gdy zapiszesz ten skrypt PHP, proszę wprowadź go do głównego katalogu www. Musi być widoczny
+                    jako `http://twojastrona.pl/subskrypcja.php`. Ten plik tworzy połączenie PROXY pomiędzy twoim
+                    serwisem www a aplikacją subskrypcja.
+                </target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>Recipient email</source>
+                <target>Email odbiorcy</target>
+            </trans-unit>
+            <trans-unit id="30">
+                <source>Recipient name</source>
+                <target>Nazwa odbiorcy</target>
+            </trans-unit>
+            <trans-unit id="32">
+                <source>To this email - emails will be sent</source>
+                <target>Na ten adres - wiadomości będą wysyłane</target>
+            </trans-unit>
+            <trans-unit id="33">
+                <source>Unsubscribe code</source>
+                <target>Kod do kasacji subskrypcji</target>
+            </trans-unit>
+            <trans-unit id="35">
+                <source>This record will be automaticly set and must be unique</source>
+                <target>Te pole zostanie automatycznie wypełnione i musi być unikalne</target>
+            </trans-unit>
+            <trans-unit id="37">
+                <source>Email status</source>
+                <target>Status emaila</target>
+            </trans-unit>
+            <trans-unit id="38">
+                <source>Message type</source>
+                <target>Typ wiadomości</target>
+            </trans-unit>
+            <trans-unit id="39">
+                <source>Message subject</source>
+                <target>Temat wiadomości</target>
+            </trans-unit>
+            <trans-unit id="40">
+                <source>Message subject:</source>
+                <target>Temat wiadomości:</target>
+            </trans-unit>
+            <trans-unit id="41">
+                <source>Message body</source>
+                <target>Treść wiadomości</target>
+            </trans-unit>
+            <trans-unit id="43">
+                <source>Message: %%subject%%</source>
+                <target>Wiadomość: %%subject%%</target>
+            </trans-unit>
+            <trans-unit id="44">
+                <source>Text emails can have only text inside.</source>
+                <target>Wiadomości tekstowe mogą zawierać tylko tekst.</target>
+            </trans-unit>
+            <trans-unit id="45">
+                <source>Please put here your message data. To have personalized information you can use special tags
+                    like {email} or {fullname} which are ne change to email adres and Fullname of user who will gain
+                    this message. To add special link to unsubscribe from this list please use tag {unsubscribe}.
+                </source>
+                <target>Podaj treść wiadomości. Aby wykorzystać personalizację możesz użyć znaczników {email} lub
+                    {fullname} które wstawią w wiadomosci odpowiedznio adres email i nazwe (imię i nazwisko) odbiorcy
+                    wiadomości. Aby dodać link pozwalający na usunięcie się z listy subskrypcyjnej użyj znacznika
+                    {unsubscribe}.
+                </target>
+            </trans-unit>
+            <trans-unit id="46">
+                <source>Time to send</source>
+                <target>Czas startu wysyłki</target>
+            </trans-unit>
+            <trans-unit id="47">
+                <source>Message subject</source>
+                <target>Temat wiadomości</target>
+            </trans-unit>
+            <trans-unit id="48">
+                <source>Time to send</source>
+                <target>Czas startu wysyłki</target>
+            </trans-unit>
+            <trans-unit id="49">
+                <source>In queue</source>
+                <target>W kolejce</target>
+            </trans-unit>
+            <trans-unit id="50">
+                <source>In sent</source>
+                <target>Wysłanych</target>
+            </trans-unit>
+            <trans-unit id="51">
+                <source>Send mailing</source>
+                <target>Roześlij pocztę</target>
+            </trans-unit>
+            <trans-unit id="52">
+                <source>Delete mailing from queue</source>
+                <target>Skasuj pocztę z kolejki</target>
+            </trans-unit>
+            <trans-unit id="52">
+                <source>Message type</source>
+                <target>Typ wiadomości</target>
+            </trans-unit>
+            <trans-unit id="53">
+                <source>Message subject</source>
+                <target>Temat wiadomości</target>
+            </trans-unit>
+            <trans-unit id="54">
+                <source>Email from:</source>
+                <target>Adres Zwrotny:</target>
+            </trans-unit>
+            <trans-unit id="55">
+                <source>Recipient email</source>
+                <target>Email odbiorcy</target>
+            </trans-unit>
+            <trans-unit id="56">
+                <source>Recipient name</source>
+                <target>Nazwa odbiorcy</target>
+            </trans-unit>
+            <trans-unit id="57">
+                <source>Time to send</source>
+                <target>Czas startu wysyłki</target>
+            </trans-unit>
+            <trans-unit id="58">
+                <source>Template type</source>
+                <target>Typ szablonu</target>
+            </trans-unit>
+            <trans-unit id="59">
+                <source>Template name</source>
+                <target>Nazwa szablonu</target>
+            </trans-unit>
+            <trans-unit id="60">
+                <source>Template body</source>
+                <target>Treść szablonu</target>
+            </trans-unit>
+            <trans-unit id="61">
+                <source>Template type:</source>
+                <target>Typ szablonu:</target>
+            </trans-unit>
+            <trans-unit id="62">
+                <source>Template name:</source>
+                <target>Nazwa szablonu:</target>
+            </trans-unit>
+            <trans-unit id="63">
+                <source>Template body:</source>
+                <target>Treść szablonu:</target>
+            </trans-unit>
+            <trans-unit id="64">
+                <source>Text emails can have only text inside.</source>
+                <target>Wiadomości tekstowe mogą zawierać tylko tekst.</target>
+            </trans-unit>
+            <trans-unit id="65">
+                <source>Please put here your template data. To have personalized information you can use special tags
+                    like {email} or {fullname} which are ne change to email adres and Fullname of user who will gain
+                    this message. To add special link to unsubscribe from this list please use tag {unsubscribe}.
+                </source>
+                <target>Podaj treść szablonu wiadomości. Aby wykorzystać personalizację możesz użyć znaczników {email}
+                    lub {fullname} które wstawią w wiadomosci odpowiedznio adres email i nazwe (imię i nazwisko)
+                    odbiorcy wiadomości. Aby dodać link pozwalający na usunięcie się z listy subskrypcyjnej użyj
+                    znacznika {unsubscribe}.
+                </target>
+            </trans-unit>
+            <trans-unit id="66">
+                <source>Choose name easy to connect with template.</source>
+                <target>Wybierz nazwę prostą do zapamiętania dla szablonu.</target>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>

@@ -9,28 +9,28 @@
  */
 class twSubscriptionMailing extends BasetwSubscriptionMailing
 {
-	public function __toString()
-	{
-		return $this->getMessage();
-	}
+    public function __toString()
+    {
+        return $this->getMessage();
+    }
 
-	public function getList()
-	{
-		return $this->gettwSubscriptionList()->getListName();
-	}
+    public function getList()
+    {
+        return $this->gettwSubscriptionList()->getListName();
+    }
 
-	public function getMessage()
-	{
-		return $this->gettwSubscriptionMessage()->getSubject();
-	}
+    public function getMessage()
+    {
+        return $this->gettwSubscriptionMessage()->getSubject();
+    }
 
-	public function getInQueue()
-	{
-		return $this->counttwSubscriptionMailQueues();
-	}
+    public function getInQueue()
+    {
+        return $this->counttwSubscriptionMailQueues();
+    }
 
-	public function getInSent()
-	{
-		return $this->counttwSubscriptionMailSents();
-	}
+    public function getInSent()
+    {
+        return $this->counttwSubscriptionMailSents();
+    }
 }

@@ -9,7 +9,7 @@
  */
 class twSubscriptionListInvitationFormFilter extends BasetwSubscriptionListInvitationFormFilter
 {
-	public function configure()
-	{
-	}
+    public function configure()
+    {
+    }
 }

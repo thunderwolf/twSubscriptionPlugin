@@ -2,7 +2,7 @@
 
 class mailerComponents extends sfComponents
 {
-	public function executeConfirm()
-	{
-	}
+    public function executeConfirm()
+    {
+    }
 }

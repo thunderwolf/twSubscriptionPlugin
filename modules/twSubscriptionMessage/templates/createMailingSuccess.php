@@ -6,5 +6,5 @@
 <?php include_partial('twSubscriptionMessage/flashes') ?>
 
 <div id="tw_admin_content">
-	<?php include_partial('twSubscriptionMessage/create_mailing_form', array('form' => $form)) ?>
+    <?php include_partial('twSubscriptionMessage/create_mailing_form', array('form' => $form)) ?>
 </div>

@@ -9,7 +9,7 @@
  */
 class twSubscriptionListTypeI18nFormFilter extends BasetwSubscriptionListTypeI18nFormFilter
 {
-	public function configure()
-	{
-	}
+    public function configure()
+    {
+    }
 }

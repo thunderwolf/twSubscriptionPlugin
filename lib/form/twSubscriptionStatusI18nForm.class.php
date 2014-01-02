@@ -8,7 +8,7 @@
  */
 class twSubscriptionStatusI18nForm extends BasetwSubscriptionStatusI18nForm
 {
-	public function configure()
-	{
-	}
+    public function configure()
+    {
+    }
 }

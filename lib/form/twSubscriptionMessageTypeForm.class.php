@@ -8,7 +8,7 @@
  */
 class twSubscriptionMessageTypeForm extends BasetwSubscriptionMessageTypeForm
 {
-	public function configure()
-	{
-	}
+    public function configure()
+    {
+    }
 }

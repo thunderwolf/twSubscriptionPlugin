@@ -17,9 +17,9 @@
  */
 class twSubscriptionListQuery extends BasetwSubscriptionListQuery
 {
-	public function withI18n()
-	{
-		// TODO: make it works
-		$this->usetwSubscriptionListTypeQuery()->joinWithI18n();
-	}
+    public function withI18n()
+    {
+        // TODO: make it works
+        $this->usetwSubscriptionListTypeQuery()->joinWithI18n();
+    }
 } // twSubscriptionListQuery

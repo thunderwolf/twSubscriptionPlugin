@@ -10,17 +10,20 @@
  */
 class twSubscriptionListGeneratorConfiguration extends BaseTwSubscriptionListGeneratorConfiguration
 {
-	protected $user = null;
-	
-	public function setUser($user) {
-		$this->user = $user;
-	}
-	
-	public function getUser() {
-		return $this->user;
-	}
-	
-	public function getFormOptions() {
-		return array('user' => $this->getUser());
-	}
+    protected $user = null;
+
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function getFormOptions()
+    {
+        return array('user' => $this->getUser());
+    }
 }

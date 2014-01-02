@@ -1,21 +1,21 @@
 {
-	"name": "thunderwolf/tw-subscription-plugin",
-	"type": "symfony1-plugin",
-	"description": "symfony 1.x Thunderwolf Subscription plugin",
-	"keywords": ["symfony", "thunderwolf"],
-	"homepage": "http://thunderwolf.net/",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Arkadiusz Tułodziecki",
-			"email": "atulodzi@gmail.com",
-			"homepage": "http://thunderwolf.net/"
-		}
-	],
-	"require": {
-		"composer/installers": "*",
-		"thunderwolf/sf-task-logger-plugin": "~1.0.4",
-		"twig/twig": "1.*",
-		"keboola/csv": "~1.1.2"
-	}
+    "name": "thunderwolf/tw-subscription-plugin",
+    "type": "symfony1-plugin",
+    "description": "symfony 1.x Thunderwolf Subscription plugin",
+    "keywords": ["symfony", "thunderwolf"],
+    "homepage": "http://thunderwolf.net/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Arkadiusz Tułodziecki",
+            "email": "atulodzi@gmail.com",
+            "homepage": "http://thunderwolf.net/"
+        }
+    ],
+    "require": {
+        "composer/installers": "*",
+        "thunderwolf/sf-task-logger-plugin": "~1.0.4",
+        "twig/twig": "1.*",
+        "keboola/csv": "~1.1.2"
+    }
 }

@@ -8,7 +8,7 @@
  */
 class twSubscriptionMailSentForm extends BasetwSubscriptionMailSentForm
 {
-	public function configure()
-	{
-	}
+    public function configure()
+    {
+    }
 }

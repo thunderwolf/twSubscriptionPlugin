@@ -9,13 +9,13 @@
  */
 class twSubscriptionEmail extends BasetwSubscriptionEmail
 {
-	public function getListname()
-	{
-		return $this->gettwSubscriptionList()->getListName();
-	}
+    public function getListname()
+    {
+        return $this->gettwSubscriptionList()->getListName();
+    }
 
-	public function getStatus()
-	{
-		return $this->gettwSubscriptionStatus();
-	}
+    public function getStatus()
+    {
+        return $this->gettwSubscriptionStatus();
+    }
 }

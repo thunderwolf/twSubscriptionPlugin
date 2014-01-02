@@ -1,7 +1,6 @@
 <?php
 
 
-
 /**
  * Skeleton subclass for performing query and update operations on the 'tw_subscription_mail_queue' table.
  *
@@ -19,9 +18,9 @@
  */
 class twSubscriptionMailQueueQuery extends BasetwSubscriptionMailQueueQuery
 {
-	static public function getMailingQueue(PropelPDO $connection)
-	{
-		$sth = $connection->prepare('
+    static public function getMailingQueue(PropelPDO $connection)
+    {
+        $sth = $connection->prepare('
 			SELECT id,
 				mailing_id,
 				message_type,
@@ -44,30 +43,30 @@ class twSubscriptionMailQueueQuery extends BasetwSubscriptionMailQueueQuery
 			FROM tw_subscription_mail_queue
 			WHERE time_to_send < NOW()
 		');
-		$sth->execute();
+        $sth->execute();
 
-		return $sth->fetchAll(PDO::FETCH_ASSOC);
-	}
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-	static public function delFromQueue(PropelPDO $connection, $row)
-	{
-		$stmt = $connection->prepare('
+    static public function delFromQueue(PropelPDO $connection, $row)
+    {
+        $stmt = $connection->prepare('
 					INSERT INTO tw_subscription_mail_sent
 						(mailing_id, time_to_send, sender, r_email, body, created_at)
 					VALUES
 						(:mailing_id, :time_to_send, :sender, :r_email, :body, NOW())
 					');
 
-		$stmt->bindParam(':mailing_id', $row['mailing_id']);
-		$stmt->bindParam(':time_to_send', $row['time_to_send']);
-		$stmt->bindParam(':sender', $row['from_address']);
-		$stmt->bindParam(':r_email', $row['r_email']);
-		$stmt->bindParam(':body', $row['message']);
-		$stmt->execute();
+        $stmt->bindParam(':mailing_id', $row['mailing_id']);
+        $stmt->bindParam(':time_to_send', $row['time_to_send']);
+        $stmt->bindParam(':sender', $row['from_address']);
+        $stmt->bindParam(':r_email', $row['r_email']);
+        $stmt->bindParam(':body', $row['message']);
+        $stmt->execute();
 
-		$stmt = $connection->prepare('DELETE FROM tw_subscription_mail_queue WHERE id = :id');
-		$stmt->bindParam(':id', $row['id']);
-		$stmt->execute();
+        $stmt = $connection->prepare('DELETE FROM tw_subscription_mail_queue WHERE id = :id');
+        $stmt->bindParam(':id', $row['id']);
+        $stmt->execute();
 
-	}
+    }
 } // twSubscriptionMailQueueQuery

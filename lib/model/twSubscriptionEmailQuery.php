@@ -1,7 +1,6 @@
 <?php
 
 
-
 /**
  * Skeleton subclass for performing query and update operations on the 'tw_subscription_email' table.
  *
@@ -19,17 +18,17 @@
  */
 class twSubscriptionEmailQuery extends BasetwSubscriptionEmailQuery
 {
-	public function unsubscribe($auth_key, $list_id, PropelPDO $con = null)
-	{
-		$email = $this->filterByAuthKey($auth_key)->filterByListId($list_id)->findOne($con);
-		if ($email instanceof twSubscriptionEmail) {
-			$status = twSubscriptionStatusQuery::create()->filterByCode('disabled')->findOne($con);
-			if ($status instanceof twSubscriptionStatus) {
-				$email->settwSubscriptionStatus($status);
-				$email->save($con);
-				return $email;
-			}
-		}
-		return false;
-	}
+    public function unsubscribe($auth_key, $list_id, PropelPDO $con = null)
+    {
+        $email = $this->filterByAuthKey($auth_key)->filterByListId($list_id)->findOne($con);
+        if ($email instanceof twSubscriptionEmail) {
+            $status = twSubscriptionStatusQuery::create()->filterByCode('disabled')->findOne($con);
+            if ($status instanceof twSubscriptionStatus) {
+                $email->settwSubscriptionStatus($status);
+                $email->save($con);
+                return $email;
+            }
+        }
+        return false;
+    }
 } // twSubscriptionEmailQuery

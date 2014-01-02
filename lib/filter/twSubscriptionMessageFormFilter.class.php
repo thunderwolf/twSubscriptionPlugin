@@ -9,7 +9,7 @@
  */
 class twSubscriptionMessageFormFilter extends BasetwSubscriptionMessageFormFilter
 {
-	public function configure()
-	{
-	}
+    public function configure()
+    {
+    }
 }

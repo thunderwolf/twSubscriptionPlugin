@@ -9,13 +9,13 @@
  */
 class twSubscriptionTemplate extends BasetwSubscriptionTemplate
 {
-	public function __toString()
-	{
-		return $this->getTname();
-	}
+    public function __toString()
+    {
+        return $this->getTname();
+    }
 
-	public function getType()
-	{
-		return $this->gettwSubscriptionMessageType();
-	}
+    public function getType()
+    {
+        return $this->gettwSubscriptionMessageType();
+    }
 }

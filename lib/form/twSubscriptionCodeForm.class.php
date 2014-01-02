@@ -9,20 +9,20 @@
  */
 class twSubscriptionCodeForm extends sfForm
 {
-	public function configure()
-	{
-		$this->setWidgets(
-			array(
-				'list_js' => new sfWidgetFormTextarea(),
-			)
-		);
+    public function configure()
+    {
+        $this->setWidgets(
+            array(
+                'list_js' => new sfWidgetFormTextarea(),
+            )
+        );
 
-		$this->widgetSchema->setNameFormat('code[%s]');
+        $this->widgetSchema->setNameFormat('code[%s]');
 
-		$this->setValidators(
-			array(
-				'list_js' => new sfValidatorPass(),
-			)
-		);
-	}
+        $this->setValidators(
+            array(
+                'list_js' => new sfValidatorPass(),
+            )
+        );
+    }
 }
