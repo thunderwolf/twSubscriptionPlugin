@@ -8,8 +8,8 @@
  * @author      Arkadiusz Tułodziecki
  */
 class twSubscriptionPluginConfiguration extends sfPluginConfiguration {
-	const VERSION = '1.4.0';
-	const DATE = '2013-12-01';
+	const VERSION = '1.4';
+	const DATE = '2014-01-02';
 
 	/**
 	 * @see sfPluginConfiguration

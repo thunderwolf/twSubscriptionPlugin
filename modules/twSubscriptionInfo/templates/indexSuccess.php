@@ -1,5 +1,5 @@
 <?php use_helper('I18N') ?>
-<h1><?php echo __('Informations', null, 'tw_subscription') ?> - <?php echo __('Subscription', null, 'tw_subscription') ?> 1.3</h1>
+<h1><?php echo __('Informations', null, 'tw_subscription') ?> - <?php echo __('Subscription', null, 'tw_subscription') ?> 1.4</h1>
 
 <ul>
   <li>
