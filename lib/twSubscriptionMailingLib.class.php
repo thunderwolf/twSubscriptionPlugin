@@ -496,16 +496,14 @@ class twSubscriptionBundleHtmlTag
     /**
      * Bundle Html Tag for embedded XHTML message
      *
-     * In old was "self::bundleHtmlTag('$1', '$2', '$3', \$data, \$message_obj, \$task)"s
-     *
      * @param $matches
      * @return string
      */
     public function bundle($matches)
     {
-        $prefix = $matches[0];
-        $path = $matches[1];
-        $suffix = $matches[2];
+        $prefix = $matches[1];
+        $path = $matches[2];
+        $suffix = $matches[3];
         $allowed_schemes = array('http', 'https', 'ftp');
 
         $url_chopped = parse_url($path);
@@ -535,16 +533,14 @@ class twSubscriptionParseHtmlTag
     /**
      * In this moment repair links
      *
-     * In Old was "self::parseHtmlTag('$1', '$2', '$3', \$data)"
-     *
      * @param $matches
      * @return string
      */
     public function parse($matches)
     {
-        $prefix = $matches[0];
-        $path = $matches[1];
-        $suffix = $matches[2];
+        $prefix = $matches[1];
+        $path = $matches[2];
+        $suffix = $matches[3];
 
         return stripslashes($prefix) . self::resolve_href($this->data['web_base_url'], $path) . stripslashes($suffix);
     }
