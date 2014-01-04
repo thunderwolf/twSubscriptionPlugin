@@ -332,11 +332,14 @@ class twSubscriptionMailingLib
      */
     static protected function expandHtmlTags($message, $data)
     {
-        $message = preg_replace('/(<img.*?src=\")(.*?)(\".*?>)/ise', "self::parseHtmlTag('$1', '$2', '$3', \$data)", $message);
-        $message = preg_replace('/(<.*?background=\")(.*?)(\".*?>)/ise', "self::parseHtmlTag('$1', '$2', '$3', \$data)", $message);
-        $message = preg_replace('/(<input.*?src=\")(.*?)(\".*?>)/ise', "self::parseHtmlTag('$1', '$2', '$3', \$data)", $message);
-        $message = preg_replace('/(<a.*?href=\")(.*?)(\".*?>)/ise', "self::parseHtmlTag('$1', '$2', '$3', \$data)", $message);
+        $parse_obj = new twSubscriptionParseHtmlTag($data);
 
+        $message = preg_replace_callback('/(<img.*?src=\")(.*?)(\".*?>)/is', array($parse_obj, 'parse'), $message);
+        $message = preg_replace_callback('/(<.*?background=\")(.*?)(\".*?>)/is', array($parse_obj, 'parse'), $message);
+        $message = preg_replace_callback('/(<input.*?src=\")(.*?)(\".*?>)/is', array($parse_obj, 'parse'), $message);
+        $message = preg_replace_callback('/(<a.*?href=\")(.*?)(\".*?>)/is', array($parse_obj, 'parse'), $message);
+
+        unset($parse_obj);
         return $message;
     }
 
@@ -351,56 +354,19 @@ class twSubscriptionMailingLib
      */
     static protected function embeddedHtmlTags($message, $data, Swift_Message $message_obj, $task = null)
     {
-        $message = preg_replace('/(<img.*?src=\")(.*?)(\".*?>)/ise', "self::bundleHtmlTag('$1', '$2', '$3', \$data, \$message_obj, \$task)", $message);
-        $message = preg_replace('/(<.*?background=\")(.*?)(\".*?>)/ise', "self::bundleHtmlTag('$1', '$2', '$3', \$data, \$message_obj, \$task)", $message);
-        $message = preg_replace('/(<input.*?src=\")(.*?)(\".*?>)/ise', "self::bundleHtmlTag('$1', '$2', '$3', \$data, \$message_obj, \$task)", $message);
-        // TODO: pamięć zawodzi - czy ma być parseHtmlTag?
-        $message = preg_replace('/(<a.*?href=\")(.*?)(\".*?>)/ise', "self::parseHtmlTag('$1', '$2', '$3', \$data)", $message);
+        $bundle_obj = new twSubscriptionBundleHtmlTag($data, $message_obj, $task);
+        $parse_obj = new twSubscriptionParseHtmlTag($data);
 
+        $message = preg_replace_callback('/(<img.*?src=\")(.*?)(\".*?>)/is', array($bundle_obj, 'bundle'), $message);
+        $message = preg_replace_callback('/(<.*?background=\")(.*?)(\".*?>)/is', array($bundle_obj, 'bundle'), $message);
+        $message = preg_replace_callback('/(<input.*?src=\")(.*?)(\".*?>)/is', array($bundle_obj, 'bundle'), $message);
+
+        // TODO: to check
+        $message = preg_replace_callback('/(<a.*?href=\")(.*?)(\".*?>)/ise', array($parse_obj, 'parse'), $message);
+
+        unset($bundle_obj);
+        unset($parse_obj);
         return $message;
-    }
-
-    /**
-     * Repair link
-     *
-     * @param $prefix
-     * @param $path
-     * @param $suffix
-     * @param $data
-     * @return string
-     */
-    static protected function parseHtmlTag($prefix, $path, $suffix, $data)
-    {
-        return stripslashes($prefix) . self::resolve_href($data['web_base_url'], $path) . stripslashes($suffix);
-    }
-
-    /**
-     * Bundle Html Tag for embedded XHTML message
-     *
-     * @param $prefix
-     * @param $path
-     * @param $suffix
-     * @param $data
-     * @param Swift_Message $message_obj
-     * @param null $task
-     * @return string
-     */
-    static protected function bundleHtmlTag($prefix, $path, $suffix, $data, Swift_Message $message_obj, $task = null)
-    {
-        $allowed_schemes = array('http', 'https', 'ftp');
-
-        $url_chopped = parse_url($path);
-        if (is_array($url_chopped) && in_array('scheme', array_keys($url_chopped)) && in_array($url_chopped['scheme'], $allowed_schemes)) {
-            // TODO: clean after send mailing
-            $path = self::cacheInternetImage($path);
-            $cid = self::getImageFileCid($path, $message_obj, $task);
-        } else {
-            // TODO: clean after send mailing
-            $path = $data['sub_base_url'] . urldecode($path);
-            $path = self::cacheInternetImage($path);
-            $cid = self::getImageFileCid($path, $message_obj, $task);
-        }
-        return stripslashes($prefix) . $cid . stripslashes($suffix);
     }
 
     /**
@@ -422,61 +388,6 @@ class twSubscriptionMailingLib
             $cid = '';
         }
         return $cid;
-    }
-
-    /**
-     * If you need to resolve a url against a base url, as the browser does with anchor tags
-     *
-     * @param string $base
-     * @param string $href
-     * @return string
-     *
-     * @link http://www.php.net/manual/en/function.realpath.php#85388
-     * @author Isaac Z. Schlueter
-     * TODO: If your path contains "0" (or any "false" string) directory name, the function removes that directory from the path.
-     */
-    static protected function resolve_href($base, $href)
-    {
-        // href="" ==> current url.
-        if (!$href) {
-            return $base;
-        }
-
-        // href="http://..." ==> href isn't relative
-        $rel_parsed = parse_url($href);
-        if (array_key_exists('scheme', $rel_parsed)) {
-            return $href;
-        }
-
-        // add an extra character so that, if it ends in a /, we don't lose the last piece.
-        $base_parsed = parse_url("$base ");
-        // if it's just server.com and no path, then put a / there.
-        if (!array_key_exists('path', $base_parsed)) {
-            $base_parsed = parse_url("$base/ ");
-        }
-
-        // href="/ ==> throw away current path.
-        if ($href{0} === "/") {
-            $path = $href;
-        } else {
-            $path = dirname($base_parsed['path']) . "/$href";
-        }
-
-        // bla/./bloo ==> bla/bloo
-        $path = preg_replace('~/\./~', '/', $path);
-
-        // resolve /../
-        // loop through all the parts, popping whenever there's a .., pushing otherwise.
-        $parts = array();
-        foreach (explode('/', preg_replace('~/+~', '/', $path)) as $part)
-            if ($part === "..") {
-                array_pop($parts);
-            } elseif ($part) {
-                $parts[] = $part;
-            }
-
-        return ((array_key_exists('scheme', $base_parsed)) ? $base_parsed['scheme'] . '://' . $base_parsed['host'] : "") . "/" . implode("/", $parts);
-
     }
 
     /**
@@ -571,3 +482,125 @@ class twSubscriptionMailingLib
     }
 }
 
+class twSubscriptionBundleHtmlTag
+{
+    protected $data, $message_obj, $task;
+
+    public function __construct($data, $message_obj, $task)
+    {
+        $this->data = $data;
+        $this->message_obj = $message_obj;
+        $this->task = $task;
+    }
+
+    /**
+     * Bundle Html Tag for embedded XHTML message
+     *
+     * In old was "self::bundleHtmlTag('$1', '$2', '$3', \$data, \$message_obj, \$task)"s
+     *
+     * @param $matches
+     * @return string
+     */
+    public function bundle($matches)
+    {
+        $prefix = $matches[0];
+        $path = $matches[1];
+        $suffix = $matches[2];
+        $allowed_schemes = array('http', 'https', 'ftp');
+
+        $url_chopped = parse_url($path);
+        if (is_array($url_chopped) && in_array('scheme', array_keys($url_chopped)) && in_array($url_chopped['scheme'], $allowed_schemes)) {
+            // TODO: clean after send mailing
+            $path = self::cacheInternetImage($path);
+            $cid = self::getImageFileCid($path, $this->message_obj, $this->task);
+        } else {
+            // TODO: clean after send mailing
+            $path = $this->data['sub_base_url'] . urldecode($path);
+            $path = self::cacheInternetImage($path);
+            $cid = self::getImageFileCid($path, $this->message_obj, $this->task);
+        }
+        return stripslashes($prefix) . $cid . stripslashes($suffix);
+    }
+}
+
+class twSubscriptionParseHtmlTag
+{
+    protected $data;
+
+    public function __construct($data)
+    {
+        $this->data = $data;
+    }
+
+    /**
+     * In this moment repair links
+     *
+     * In Old was "self::parseHtmlTag('$1', '$2', '$3', \$data)"
+     *
+     * @param $matches
+     * @return string
+     */
+    public function parse($matches)
+    {
+        $prefix = $matches[0];
+        $path = $matches[1];
+        $suffix = $matches[2];
+
+        return stripslashes($prefix) . self::resolve_href($this->data['web_base_url'], $path) . stripslashes($suffix);
+    }
+
+    /**
+     * If you need to resolve a url against a base url, as the browser does with anchor tags
+     *
+     * @param string $base
+     * @param string $href
+     * @return string
+     *
+     * @link http://www.php.net/manual/en/function.realpath.php#85388
+     * @author Isaac Z. Schlueter
+     * TODO: If your path contains "0" (or any "false" string) directory name, the function removes that directory from the path.
+     */
+    static protected function resolve_href($base, $href)
+    {
+        // href="" ==> current url.
+        if (!$href) {
+            return $base;
+        }
+
+        // href="http://..." ==> href isn't relative
+        $rel_parsed = parse_url($href);
+        if (array_key_exists('scheme', $rel_parsed)) {
+            return $href;
+        }
+
+        // add an extra character so that, if it ends in a /, we don't lose the last piece.
+        $base_parsed = parse_url("$base ");
+        // if it's just server.com and no path, then put a / there.
+        if (!array_key_exists('path', $base_parsed)) {
+            $base_parsed = parse_url("$base/ ");
+        }
+
+        // href="/ ==> throw away current path.
+        if ($href{0} === "/") {
+            $path = $href;
+        } else {
+            $path = dirname($base_parsed['path']) . "/$href";
+        }
+
+        // bla/./bloo ==> bla/bloo
+        $path = preg_replace('~/\./~', '/', $path);
+
+        // resolve /../
+        // loop through all the parts, popping whenever there's a .., pushing otherwise.
+        $parts = array();
+        foreach (explode('/', preg_replace('~/+~', '/', $path)) as $part)
+            if ($part === "..") {
+                array_pop($parts);
+            } elseif ($part) {
+                $parts[] = $part;
+            }
+
+        return ((array_key_exists('scheme', $base_parsed)) ? $base_parsed['scheme'] . '://' . $base_parsed['host'] : "") . "/" . implode("/", $parts);
+
+    }
+}
