@@ -362,7 +362,7 @@ class twSubscriptionMailingLib
         $message = preg_replace_callback('/(<input.*?src=\")(.*?)(\".*?>)/is', array($bundle_obj, 'bundle'), $message);
 
         // TODO: to check
-        $message = preg_replace_callback('/(<a.*?href=\")(.*?)(\".*?>)/ise', array($parse_obj, 'parse'), $message);
+        $message = preg_replace_callback('/(<a.*?href=\")(.*?)(\".*?>)/is', array($parse_obj, 'parse'), $message);
 
         unset($bundle_obj);
         unset($parse_obj);
