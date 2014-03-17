@@ -370,27 +370,6 @@ class twSubscriptionMailingLib
     }
 
     /**
-     * Embed Image in message and get CID of it.
-     *
-     * @param $path
-     * @param Swift_Message $message_obj
-     * @param null $task
-     * @return string
-     */
-    static protected function getImageFileCid($path, Swift_Message $message_obj, $task = null)
-    {
-        if (is_file($path)) {
-            $cid = $message_obj->embed(Swift_Image::fromPath($path));
-        } else {
-            if (!is_null($task)) {
-                $task->logMe("Warning: No file '" . $path . "'\n");
-            }
-            $cid = '';
-        }
-        return $cid;
-    }
-
-    /**
      * Creating plain text message from html message
      *
      * @param $html
@@ -405,6 +384,45 @@ class twSubscriptionMailingLib
             $text .= trim(str_replace('&nbsp;', ' ', $v)) . "\n";
         }
         return $text;
+    }
+}
+
+class twSubscriptionBundleHtmlTag
+{
+    protected $data, $message_obj, $task;
+
+    public function __construct($data, $message_obj, $task)
+    {
+        $this->data = $data;
+        $this->message_obj = $message_obj;
+        $this->task = $task;
+    }
+
+    /**
+     * Bundle Html Tag for embedded XHTML message
+     *
+     * @param $matches
+     * @return string
+     */
+    public function bundle($matches)
+    {
+        $prefix = $matches[1];
+        $path = $matches[2];
+        $suffix = $matches[3];
+        $allowed_schemes = array('http', 'https', 'ftp');
+
+        $url_chopped = parse_url($path);
+        if (is_array($url_chopped) && in_array('scheme', array_keys($url_chopped)) && in_array($url_chopped['scheme'], $allowed_schemes)) {
+            // TODO: clean after send mailing
+            $path = self::cacheInternetImage($path);
+            $cid = self::getImageFileCid($path, $this->message_obj, $this->task);
+        } else {
+            // TODO: clean after send mailing
+            $path = $this->data['sub_base_url'] . urldecode($path);
+            $path = self::cacheInternetImage($path);
+            $cid = self::getImageFileCid($path, $this->message_obj, $this->task);
+        }
+        return stripslashes($prefix) . $cid . stripslashes($suffix);
     }
 
     /**
@@ -480,44 +498,26 @@ class twSubscriptionMailingLib
         }
         return false;
     }
-}
-
-class twSubscriptionBundleHtmlTag
-{
-    protected $data, $message_obj, $task;
-
-    public function __construct($data, $message_obj, $task)
-    {
-        $this->data = $data;
-        $this->message_obj = $message_obj;
-        $this->task = $task;
-    }
 
     /**
-     * Bundle Html Tag for embedded XHTML message
+     * Embed Image in message and get CID of it.
      *
-     * @param $matches
+     * @param $path
+     * @param Swift_Message $message_obj
+     * @param null $task
      * @return string
      */
-    public function bundle($matches)
+    static protected function getImageFileCid($path, Swift_Message $message_obj, $task = null)
     {
-        $prefix = $matches[1];
-        $path = $matches[2];
-        $suffix = $matches[3];
-        $allowed_schemes = array('http', 'https', 'ftp');
-
-        $url_chopped = parse_url($path);
-        if (is_array($url_chopped) && in_array('scheme', array_keys($url_chopped)) && in_array($url_chopped['scheme'], $allowed_schemes)) {
-            // TODO: clean after send mailing
-            $path = self::cacheInternetImage($path);
-            $cid = self::getImageFileCid($path, $this->message_obj, $this->task);
+        if (is_file($path)) {
+            $cid = $message_obj->embed(Swift_Image::fromPath($path));
         } else {
-            // TODO: clean after send mailing
-            $path = $this->data['sub_base_url'] . urldecode($path);
-            $path = self::cacheInternetImage($path);
-            $cid = self::getImageFileCid($path, $this->message_obj, $this->task);
+            if (!is_null($task)) {
+                $task->logMe("Warning: No file '" . $path . "'\n");
+            }
+            $cid = '';
         }
-        return stripslashes($prefix) . $cid . stripslashes($suffix);
+        return $cid;
     }
 }
 

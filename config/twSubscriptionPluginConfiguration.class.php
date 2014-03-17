@@ -10,7 +10,7 @@
 class twSubscriptionPluginConfiguration extends sfPluginConfiguration
 {
     const VERSION = '1.4';
-    const DATE = '2014-01-02';
+    const DATE = '2014-03-17';
 
     /**
      * @see sfPluginConfiguration
