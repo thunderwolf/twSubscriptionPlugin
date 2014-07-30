@@ -189,6 +189,8 @@ class twSubscriptionMailingLib
             ->setPort($port);
         if ($encr == 1) {
             $transport->setEncryption('ssl');
+        } elseif ($encr == 2) {
+            $transport->setEncryption('tls');
         }
         return $transport;
     }
