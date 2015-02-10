@@ -72,19 +72,18 @@ class twSubscriptionListActions extends autotwSubscriptionListActions
         return sfView::NONE;
     }
 
-    // TODO: w tasku synchronizującym jest lepsza obsługa sprawdzająca zgodność z interface
     public function executeSyncEmails(sfWebRequest $request)
     {
         $this->tw_subscription_list = $this->getRoute()->getObject();
+        $lib_class = $this->tw_subscription_list->getTwSubscriptionListType()->getLibrary();
 
-        $libclass = $this->tw_subscription_list->getTwSubscriptionListType()->getLibrary();
-        if (empty($libclass)) {
+
+        $sync_class = new $lib_class();
+        if ($sync_class instanceof twSubscriptionExtListInterface) {
+            $sync_class->syncList($this->tw_subscription_list->getId(), $this->getUser());
+            return $this->redirect('@tw_subscription_list');
+        } else {
             return $this->forward404();
         }
-
-        $syncclass = new $libclass();
-        $syncclass->syncList($this->tw_subscription_list->getId(), $this->getUser());
-
-        return $this->redirect('@tw_subscription_list');
     }
 }
