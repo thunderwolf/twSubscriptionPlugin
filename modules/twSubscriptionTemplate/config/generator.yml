@@ -20,7 +20,7 @@ generator:
         t_data:
           label: Template body
           help: >
-            Please put here your template data. To have personalized information you can use special tags like {email} or {fullname} which are ne change to email adres and Fullname of user who will gain this message. To add special link to unsubscribe from this list please use tag {unsubscribe}.
+            Please put here your template data. To have personalized information you can use special tags like {{email}} or {{fullname}} which are ne change to email adres and Fullname of user who will gain this message. To add special link to unsubscribe from this list please use tag {{unsubscribe}}.
       
       list:
         title: Templates
