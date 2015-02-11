@@ -77,7 +77,6 @@ class twSubscriptionListActions extends autotwSubscriptionListActions
         $this->tw_subscription_list = $this->getRoute()->getObject();
         $lib_class = $this->tw_subscription_list->getTwSubscriptionListType()->getLibrary();
 
-
         $sync_class = new $lib_class();
         if ($sync_class instanceof twSubscriptionExtListInterface) {
             $sync_class->syncList($this->tw_subscription_list->getId(), $this->getUser());
