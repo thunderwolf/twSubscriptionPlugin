@@ -41,6 +41,8 @@ class twSubscriptionMailingActions extends autoTwSubscriptionMailingActions
 
     public function executeSendMailing(sfWebRequest $request)
     {
+        ini_set('max_execution_time', 300);
+
         $tw_subscription_mailing = $this->getRoute()->getObject();
 
         $tw_subscription_message = twSubscriptionMessageQuery::create()->findPk($tw_subscription_mailing->getMessageId());
@@ -66,12 +68,22 @@ class twSubscriptionMailingActions extends autoTwSubscriptionMailingActions
             return $this->redirect('@tw_subscription_mailing');
         }
 
-        $emails = twSubscriptionEmailQuery::create()
-            ->filterByListId($tw_subscription_mailing->getListId())
-            ->usetwSubscriptionStatusQuery()
-            ->filterByCode('active')
-            ->endUse()
-            ->find();
+        $conn = Propel::getConnection('propel');
+        $stm = $conn->prepare("SELECT id FROM tw_subscription_status WHERE code = 'active'");
+        $stm->execute();
+        $row = $stm->fetchColumn();
+        if (empty($row)) {
+            $this->getUser()->setFlash('notice', 'Status active is not set');
+            return $this->redirect('@tw_subscription_mailing');
+        }
+        $status_id = $row[0];
+
+        $stm = $conn->prepare('SELECT r_email, r_name, auth_key FROM tw_subscription_email WHERE list_id = :list_id AND status_id = :status_id');
+        $stm->bindValue(':list_id', $tw_subscription_mailing->getListId(), PDO::PARAM_INT);
+        $stm->bindValue(':status_id', $status_id, PDO::PARAM_INT);
+        $stm->execute();
+
+        $emails = $stm->fetchAll(PDO::FETCH_ASSOC);
 
         if (empty($emails)) {
             $this->getUser()->setFlash('notice', 'No Emails to send');
@@ -121,12 +133,12 @@ class twSubscriptionMailingActions extends autoTwSubscriptionMailingActions
             $queue->setSmtpUser($smpt_user);
             $queue->setSmtpPass($smtp_pass);
 
-            $queue->setREmail($row->getREmail());
-            $queue->setRName($row->getRName());
+            $queue->setREmail($row['r_email']);
+            $queue->setRName($row['r_name']);
 
-            $queue->setUnSubCode($row->getAuthKey());
+            $queue->setUnSubCode($row['auth_key']);
             $queue->setUnSubLink(
-                $web_base_url . $un_subscribe_folder . '/' . $tw_subscription_list->getId() . '/' . $row->getAuthKey()
+                $web_base_url . $un_subscribe_folder . '/' . $tw_subscription_list->getId() . '/' . $row['auth_key']
             );
 
             $queue->setSubBaseUrl('http://' . $_SERVER['SERVER_NAME'] . '/');
